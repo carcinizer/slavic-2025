@@ -27,8 +27,6 @@ func _process(delta: float) -> void:
 		0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
 		1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
 	
-	print(Input.get_vector("left2","right2","up2","down2"))
-	
 	var nearby_mushrooms: Array[Mushroom]
 	nearby_mushrooms.assign(
 		growth_area.get_overlapping_bodies().filter(func(x): \
@@ -48,7 +46,6 @@ func _process(delta: float) -> void:
 		if nearest_mushroom_distance > radius:
 			var dir = (global_position - nearest_mushroom.global_position)
 			global_position += dir.normalized() * -(nearest_mushroom_distance - radius)
-			print(dir ,nearest_mushroom_distance, nearest_mushroom.position, player_id)
 
 	global_position = global_position.clamp(
 		Vector2(radius/2, radius/2),
