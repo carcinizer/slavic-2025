@@ -10,3 +10,11 @@ position = Vector2(269, 290)
 
 [node name="Mushroom" parent="." instance=ExtResource("2_paxxb")]
 position = Vector2(529, 373)
+
+[node name="Mushroom2" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(760, 423)
+player_id = 1
+
+[node name="Cursor2" parent="." instance=ExtResource("1_4xfga")]
+position = Vector2(628, 167)
+player_id = 1
