@@ -6,7 +6,7 @@ extends Node2D
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
 
 const radius := 100.0
-const growth_speed := 10.0
+const growth_speed := 100.0
 const starting_hp := 20
 
 var mushrooms: Array[Mushroom] = []
@@ -78,3 +78,6 @@ func try_spawn_mushroom() -> bool:
 		mushrooms.push_back(new_mushroom)
 		return true
 	return false
+
+func _draw():
+	draw_circle(Vector2(0,0), radius, Color.GREEN, false, 5, true)
