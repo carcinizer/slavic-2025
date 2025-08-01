@@ -9,6 +9,10 @@ const radius := 100.0
 const growth_speed := 100.0
 const starting_hp := 20
 
+# TODO yeah, not perfect, change to final resolution
+const MAP_WIDTH := 1152
+const MAP_HEIGHT := 648
+
 var my_mushrooms: Array[Mushroom] = []
 
 func _ready():
@@ -23,6 +27,8 @@ func _process(delta: float) -> void:
 		0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
 		1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
 	
+	print(Input.get_vector("left2","right2","up2","down2"))
+	
 	var nearby_mushrooms: Array[Mushroom]
 	nearby_mushrooms.assign(
 		growth_area.get_overlapping_bodies().filter(func(x): \
@@ -30,21 +36,25 @@ func _process(delta: float) -> void:
 		)
 	)
 	
-	# TODO dead code
-	if nearby_mushrooms.is_empty():
-		var nearest_mushroom: Mushroom = null
-		var distance := 999999999.9
-		for mushroom in my_mushrooms:
-			if mushroom is not Mushroom:
-				continue
-			var new_dist = (global_position - mushroom.global_position).length()
-			if new_dist < distance:
-				nearest_mushroom = mushroom
-				distance = new_dist
-		if nearest_mushroom:
-			pass
-			#nearby_mushrooms.push_back(nearest_mushroom)
-	
+	# snap to nearest mushroom if not in range
+	var nearest_mushroom: Mushroom = null
+	var nearest_mushroom_distance := 999999999.9
+	for mushroom in my_mushrooms:
+		var new_dist = (global_position - mushroom.global_position).length()
+		if new_dist < nearest_mushroom_distance:
+			nearest_mushroom = mushroom
+			nearest_mushroom_distance = new_dist
+	if nearest_mushroom:
+		if nearest_mushroom_distance > radius:
+			var dir = (global_position - nearest_mushroom.global_position)
+			global_position += dir.normalized() * -(nearest_mushroom_distance - radius)
+			print(dir ,nearest_mushroom_distance, nearest_mushroom.position, player_id)
+
+	global_position = global_position.clamp(
+		Vector2(radius/2, radius/2),
+		Vector2(MAP_WIDTH - radius/2, MAP_HEIGHT - radius/2),
+	)
+
 	if nearby_mushrooms.size() == 0:
 		return
 	
