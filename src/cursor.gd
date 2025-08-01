@@ -74,6 +74,7 @@ func try_spawn_mushroom() -> bool:
 		var new_mushroom = mushroom_scene.instantiate()
 		new_mushroom.global_position = new_pos
 		new_mushroom.hp = starting_hp
+		new_mushroom.player_id = player_id
 		add_sibling(new_mushroom)
 		mushrooms.push_back(new_mushroom)
 		return true
