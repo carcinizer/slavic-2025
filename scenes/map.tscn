@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dosjbacgvospg"]
+
+[ext_resource type="PackedScene" uid="uid://4cj1ov35do11" path="res://scenes/cursor.tscn" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://bds4f0x6befb7" path="res://scenes/mushroom.tscn" id="2_paxxb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Cursor" parent="." instance=ExtResource("1_4xfga")]
+position = Vector2(269, 290)
+
+[node name="Mushroom" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(529, 373)
