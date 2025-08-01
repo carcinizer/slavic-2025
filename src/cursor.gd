@@ -15,7 +15,7 @@ var my_mushrooms: Array[Mushroom] = []
 func _ready():
 	BUS.mushroom_spawned.connect(func(x: Mushroom): 
 		all_mushrooms.push_back(x)
-		x.tree_exiting.connect(all_mushrooms.erase.bind(x))
+		x.tree_exiting.connect(func(): all_mushrooms.erase(x))
 	)
 	
 	for i in get_parent().get_children():
@@ -98,7 +98,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		add_sibling(new_mushroom)
 		
 		my_mushrooms.push_back(new_mushroom)
-		new_mushroom.tree_exiting.connect(my_mushrooms.erase.bind(new_mushroom))
+		new_mushroom.tree_exiting.connect(func(): my_mushrooms.erase(new_mushroom))
 		BUS.mushroom_spawned.emit(new_mushroom)
 		return true
 	return false
