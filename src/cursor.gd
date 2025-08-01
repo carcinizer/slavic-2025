@@ -6,7 +6,7 @@ extends Node2D
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
 
 const radius := 100.0
-const growth_speed := 10.0
+const growth_speed := 60.0
 const starting_hp := 20
 
 var mushrooms: Array[Mushroom] = []
@@ -64,7 +64,9 @@ func try_spawn_mushroom() -> bool:
 		var found = true
 		for mushroom in mushrooms:
 			var dist = (mushroom.global_position - new_pos).length()
-			if dist < (mushroom.radius*2) or dist > (mushroom.neighbor_range*2):
+			if dist > (mushroom.neighbor_range*2):
+				continue
+			if dist < (mushroom.radius*2):
 				found = false
 		
 		if not found:
