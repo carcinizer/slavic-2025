@@ -99,6 +99,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		
 		my_mushrooms.push_back(new_mushroom)
 		new_mushroom.tree_exiting.connect(my_mushrooms.erase.bind(new_mushroom))
+		BUS.mushroom_spawned.emit(new_mushroom)
 		return true
 	return false
 
