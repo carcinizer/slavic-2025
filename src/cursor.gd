@@ -91,6 +91,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		add_sibling(new_mushroom)
 		
 		my_mushrooms.push_back(new_mushroom)
+		new_mushroom.tree_exiting.connect(func(x): my_mushrooms.erase(x))
 		return true
 	return false
 
