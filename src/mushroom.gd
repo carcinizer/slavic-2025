@@ -10,6 +10,5 @@ extends Node2D
 const neighbor_range := 70.0
 
 func _process(_delta: float):
-	modulate.r = hp/max_hp
-	modulate.g = hp/max_hp
-	modulate.b = hp/max_hp
+	var c = Color.WHITE if player_id == 0 else Color.RED
+	modulate = c.darkened(1.0 - hp/max_hp)
