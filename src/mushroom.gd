@@ -10,9 +10,15 @@ extends Node2D
 @export var connected_to_a_tree := false
 
 const neighbor_range := 70.0
+const sprite_variants_number := 3
 
 func _ready() -> void:
 	GLOB.all_mushrooms.push_back(self)
+	var sprite_variant := randi_range(0,sprite_variants_number-1)
+	match player_id:
+		1: sprite_variant += sprite_variants_number
+	var sprite = get_node("Sprite") as Sprite2D
+	sprite.frame = sprite_variant
 
 func _process(_delta: float):
 	# if !connected_to_a_tree:

@@ -19,7 +19,7 @@ shape = SubResource("CircleShape2D_0bdi0")
 position = Vector2(0, 1.5)
 scale = Vector2(0.34375, 0.330529)
 texture = ExtResource("2_0bdi0")
-hframes = 6
+hframes = 7
 
 [node name="NeighborRange" type="Area2D" parent="."]
 
