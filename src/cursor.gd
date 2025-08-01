@@ -4,6 +4,7 @@ extends Node2D
 @export var player_id := 0
 @onready var growth_area: Area2D = $GrowthArea
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
+@onready var terrain: TileMapLayer = get_parent().get_node("Terrain") # yeah, whatever, it's a game jam
 
 const radius := 100.0
 const growth_speed := 100.0
@@ -86,6 +87,15 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 			if dist < (mushroom.radius*2):
 				colliding = true
 				break
+		
+		var terrain_coords = terrain.local_to_map(new_pos)
+		var terrain_data = terrain.get_cell_tile_data(terrain_coords)
+		if not terrain_data:
+			continue
+		else:
+			var fertility = terrain_data.get_custom_data("fertility")
+			if fertility is float and fertility < 0.0001:
+				continue
 		
 		if not neighboring or colliding:
 			continue
