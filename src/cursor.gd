@@ -9,18 +9,15 @@ const radius := 100.0
 const growth_speed := 100.0
 const starting_hp := 20
 
-var all_mushrooms: Array[Mushroom] = []
+# TODO yeah, not perfect, change to final resolution
+const MAP_WIDTH := 1152
+const MAP_HEIGHT := 648
+
 var my_mushrooms: Array[Mushroom] = []
 
 func _ready():
-	BUS.mushroom_spawned.connect(func(x: Mushroom): 
-		all_mushrooms.push_back(x)
-		x.tree_exiting.connect(all_mushrooms.erase.bind(x))
-	)
-	
 	for i in get_parent().get_children():
 		if i is Mushroom:
-			all_mushrooms.push_back(i)
 			if i.player_id == player_id:
 				my_mushrooms.push_back(i)
 
@@ -37,21 +34,24 @@ func _process(delta: float) -> void:
 		)
 	)
 	
-	# TODO dead code
-	if nearby_mushrooms.is_empty():
-		var nearest_mushroom: Mushroom = null
-		var distance := 999999999.9
-		for mushroom in my_mushrooms:
-			if mushroom is not Mushroom:
-				continue
-			var new_dist = (global_position - mushroom.global_position).length()
-			if new_dist < distance:
-				nearest_mushroom = mushroom
-				distance = new_dist
-		if nearest_mushroom:
-			pass
-			#nearby_mushrooms.push_back(nearest_mushroom)
-	
+	# snap to nearest mushroom if not in range
+	var nearest_mushroom: Mushroom = null
+	var nearest_mushroom_distance := 999999999.9
+	for mushroom in my_mushrooms:
+		var new_dist = (global_position - mushroom.global_position).length()
+		if new_dist < nearest_mushroom_distance:
+			nearest_mushroom = mushroom
+			nearest_mushroom_distance = new_dist
+	if nearest_mushroom:
+		if nearest_mushroom_distance > radius:
+			var dir = (global_position - nearest_mushroom.global_position)
+			global_position += dir.normalized() * -(nearest_mushroom_distance - radius)
+
+	global_position = global_position.clamp(
+		Vector2(radius/2, radius/2),
+		Vector2(MAP_WIDTH - radius/2, MAP_HEIGHT - radius/2),
+	)
+
 	if nearby_mushrooms.size() == 0:
 		return
 	
@@ -81,7 +81,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 				neighboring = true
 				break
 		
-		for mushroom in all_mushrooms:
+		for mushroom in GLOB.all_mushrooms:
 			var dist = (mushroom.global_position - new_pos).length()
 			if dist < (mushroom.radius*2):
 				colliding = true
@@ -98,8 +98,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		add_sibling(new_mushroom)
 		
 		my_mushrooms.push_back(new_mushroom)
-		new_mushroom.tree_exiting.connect(my_mushrooms.erase.bind(new_mushroom))
-		BUS.mushroom_spawned.emit(new_mushroom)
+		new_mushroom.tree_exiting.connect(func(x): my_mushrooms.erase(x))
 		return true
 	return false
 
