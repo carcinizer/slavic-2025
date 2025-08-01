@@ -57,6 +57,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "PlayerSelectButton"
 
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/TabContainer/KeybindsTab/HBoxContainer/PlayerSelectScrollContainer/PlayerSelectContainer/PlayerSelectButtonTemplate"]
+layout_mode = 2
+
+[node name="RemovePlayerButton" type="Button" parent="PanelContainer/TabContainer/KeybindsTab/HBoxContainer/PlayerSelectScrollContainer/PlayerSelectContainer/PlayerSelectButtonTemplate"]
+layout_mode = 2
+text = "Remove"
+
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/TabContainer/KeybindsTab/HBoxContainer/PlayerSelectScrollContainer/PlayerSelectContainer"]
 layout_mode = 2
 
@@ -194,4 +201,5 @@ value = 100.0
 tick_count = 20
 ticks_on_borders = true
 
+[connection signal="pressed" from="PanelContainer/TabContainer/KeybindsTab/HBoxContainer/PlayerSelectScrollContainer/PlayerSelectContainer/AddPlayerButton" to="." method="_on_add_player_button_pressed"]
 [connection signal="pressed" from="PanelContainer/TabContainer/KeybindsTab/HBoxContainer/PlayerSelectScrollContainer/PlayerSelectContainer/BackButton" to="." method="_on_back_button_pressed"]
