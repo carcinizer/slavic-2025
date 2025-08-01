@@ -9,18 +9,11 @@ const radius := 100.0
 const growth_speed := 100.0
 const starting_hp := 20
 
-var all_mushrooms: Array[Mushroom] = []
 var my_mushrooms: Array[Mushroom] = []
 
 func _ready():
-	BUS.mushroom_spawned.connect(func(x: Mushroom): 
-		all_mushrooms.push_back(x)
-		x.tree_exiting.connect(func(): all_mushrooms.erase(x))
-	)
-	
 	for i in get_parent().get_children():
 		if i is Mushroom:
-			all_mushrooms.push_back(i)
 			if i.player_id == player_id:
 				my_mushrooms.push_back(i)
 
@@ -81,7 +74,7 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 				neighboring = true
 				break
 		
-		for mushroom in all_mushrooms:
+		for mushroom in GLOB.all_mushrooms:
 			var dist = (mushroom.global_position - new_pos).length()
 			if dist < (mushroom.radius*2):
 				colliding = true
@@ -98,8 +91,6 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		add_sibling(new_mushroom)
 		
 		my_mushrooms.push_back(new_mushroom)
-		new_mushroom.tree_exiting.connect(func(): my_mushrooms.erase(new_mushroom))
-		BUS.mushroom_spawned.emit(new_mushroom)
 		return true
 	return false
 
