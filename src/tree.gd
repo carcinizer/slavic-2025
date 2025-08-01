@@ -4,7 +4,28 @@ extends StaticBody2D
 @export var max_hp := 100.0
 @export var radius := 100.0
 
+var checked_mushrooms: Array[Mushroom] = []
+
+func check_area(areas: Array[Area2D]):
+	for a in areas:
+		var obj = a.get_parent()
+		if obj is Mushroom and !(obj in checked_mushrooms):
+			obj.connected_to_a_tree = true
+			checked_mushrooms.push_back(obj)
+			var othersareas = a.get_overlapping_areas()
+			print(obj.name)
+			check_area(othersareas)
+
+func check_for_connections():
+	var areas = get_node("NeighborRange").get_overlapping_areas()
+	var connected_mushrooms: Array[Mushroom] = [] 
+	checked_mushrooms = []
+	check_area(areas)
+
 func _process(_delta: float):
 	modulate.r = hp/max_hp
 	modulate.g = hp/max_hp
 	modulate.b = hp/max_hp
+
+	if Input.is_action_just_pressed("debug"):
+		check_for_connections()

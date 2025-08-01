@@ -16,11 +16,12 @@ script = ExtResource("1_vplca")
 shape = SubResource("CircleShape2D_0bdi0")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, -93.1731)
-scale = Vector2(0.34375, 1.8098)
+position = Vector2(0, -164.173)
+scale = Vector2(0.34375, 2.91917)
 texture = ExtResource("2_viusy")
 
 [node name="NeighborRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborRange"]
+scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_qxrkd")

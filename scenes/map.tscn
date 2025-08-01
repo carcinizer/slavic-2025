@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dosjbacgvospg"]
+[gd_scene load_steps=4 format=3 uid="uid://dosjbacgvospg"]
 
 [ext_resource type="PackedScene" uid="uid://4cj1ov35do11" path="res://scenes/cursor.tscn" id="1_4xfga"]
 [ext_resource type="PackedScene" uid="uid://bds4f0x6befb7" path="res://scenes/mushroom.tscn" id="2_paxxb"]
+[ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -12,9 +13,12 @@ position = Vector2(269, 290)
 position = Vector2(529, 373)
 
 [node name="Mushroom2" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(760, 423)
+position = Vector2(637, 330)
 player_id = 1
 
 [node name="Cursor2" parent="." instance=ExtResource("1_4xfga")]
 position = Vector2(628, 167)
 player_id = 1
+
+[node name="Tree" parent="." instance=ExtResource("3_gldc4")]
+position = Vector2(239, 484)
