@@ -26,5 +26,6 @@ func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
 
 func _draw():
+	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	var color = Color.GREEN if connected_to_a_tree else Color.RED 
-	draw_circle(Vector2(0,0), radius, color, false, 1, true)
+	draw_circle(Vector2(0,0), rad, color, false, 1, true)
