@@ -39,6 +39,9 @@ tile_set = SubResource("TileSet_2lpho")
 
 [node name="Tree" parent="." instance=ExtResource("3_gldc4")]
 position = Vector2(239, 484)
+hp = 20.0
+max_hp = 100.0
+radius = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -8
