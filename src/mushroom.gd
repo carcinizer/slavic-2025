@@ -20,11 +20,19 @@ var should_check_for_connections = false
 var my_lifeline: StaticBody2D = null
 var my_cursor: Cursor = null
 
+
+var nearby_mushrooms: Array[Mushroom]
+
+
 const neighbor_range := 70.0
 const sprite_variants_number := 4
 
 var target_rotation = 0
 const rotation_threshold = 0.01
+const tree_pulse_coyote_time := 10 # frames
+
+var latest_pulse: int
+var latest_pulse_source: LifeTree
 
 
 @onready var prev_hp = hp
@@ -48,6 +56,17 @@ func _ready() -> void:
 	if flip == 1:
 		sprite.flip_h = true
 	on_spawn.call_deferred()
+	nearby_mushrooms.assign(
+		$NeighborRange.get_overlapping_areas().filter(func(x): \
+			return x.get_parent() is Mushroom and x.get_parent().player_id == player_id
+		).map(func(x): x.get_parent())
+	)
+	$NeighborRange.area_entered.connect(func(x): \
+		if x.get_parent() is Mushroom and x.get_parent().player_id == player_id: \
+			nearby_mushrooms.push_back(x.get_parent())
+	)
+	$NeighborRange.area_exited.connect(func(b): nearby_mushrooms.erase(b.get_parent()))
+
 
 	## Set explosion area
 	$ExplosionArea/CollisionShape2D.shape.radius = explosion_radius
@@ -77,8 +96,24 @@ func _physics_process(_delta: float):
 	
 	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
 	prev_hp = hp
-	if should_check_for_connections:
-		check_for_connections()
+	#if should_check_for_connections:
+	#	check_for_connections()
+	
+	if latest_pulse > GLOB.frame - tree_pulse_coyote_time:
+		my_tree = latest_pulse_source
+		my_tree.send_mushroom_pulse()
+	else:
+		my_tree = null
+	
+	modulate = Color.WHITE if latest_pulse % 10 > 5 else Color.WHITE.darkened(0.1)
+
+func send_tree_pulse(obj: LifeTree, frame: int):
+	if frame > latest_pulse:
+		latest_pulse = frame
+		latest_pulse_source = obj
+		for i in nearby_mushrooms:
+			i.send_tree_pulse(latest_pulse_source, latest_pulse)
+		
 
 	## Overgrowing
 	if hp >= max_hp:
