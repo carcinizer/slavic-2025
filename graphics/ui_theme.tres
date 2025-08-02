@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dyjxrr15wdax8"]
+
+[ext_resource type="Texture2D" uid="uid://dlo5r5suy145n" path="res://graphics/ui.png" id="1_touxu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2pn01"]
+texture = ExtResource("1_touxu")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+region_rect = Rect2(0, 0, 128, 128)
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxTexture_2pn01")

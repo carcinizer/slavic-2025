@@ -11,12 +11,13 @@ const growth_speed := 100.0
 const starting_hp := 20
 
 # TODO yeah, not perfect, change to final resolution
-const MAP_WIDTH := 1152
-const MAP_HEIGHT := 648
+const MAP_WIDTH := 1920
+const MAP_HEIGHT := 1080
 
 var my_mushrooms: Array[Mushroom] = []
 
 func _ready():
+	GLOB.all_cursors[player_id] = self
 	for i in get_parent().get_children():
 		if i is Mushroom:
 			if i.player_id == player_id:
@@ -113,7 +114,8 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 		add_sibling(new_mushroom)
 		
 		my_mushrooms.push_back(new_mushroom)
-		new_mushroom.tree_exiting.connect(func(x): my_mushrooms.erase(x))
+		new_mushroom.tree_exiting.connect(func(): my_mushrooms.erase(new_mushroom))
+		new_mushroom.on_spawn()
 		return true
 	return false
 
