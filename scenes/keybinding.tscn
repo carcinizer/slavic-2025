@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpsus5vfp3p0v"]
+
+[ext_resource type="Script" uid="uid://dm7yel2ilwyr7" path="res://src/ui/keybinding.gd" id="1_efavd"]
+
+[node name="Keybinding" type="HBoxContainer"]
+script = ExtResource("1_efavd")
+
+[node name="ActionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "ActionLabel"
+
+[node name="KeyChangeButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "KeyChangeButton"
+
+[connection signal="pressed" from="KeyChangeButton" to="." method="update_value"]

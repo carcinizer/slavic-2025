@@ -5,7 +5,7 @@ extends Control
 
 
 func _on_play_button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/map.tscn")
 
 
 func _on_settings_button_pressed() -> void:
