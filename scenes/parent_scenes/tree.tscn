@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7r5ai1pa2xl"]
+[gd_scene load_steps=6 format=3 uid="uid://b7r5ai1pa2xl"]
 
 [ext_resource type="Script" uid="uid://dl0j40wfaghwc" path="res://src/tree.gd" id="1_vplca"]
 [ext_resource type="Texture2D" uid="uid://bbq8u03dn5fdd" path="res://graphics/tree.png" id="2_vplca"]
+[ext_resource type="Script" uid="uid://cmt2cgqbh3yv6" path="res://src/draw_tree_hp.gd" id="2_ytrt2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0bdi0"]
 radius = 25.0
@@ -17,6 +18,12 @@ script = ExtResource("1_vplca")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0bdi0")
 
+[node name="NeighborRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborRange"]
+shape = SubResource("CircleShape2D_qxrkd")
+script = ExtResource("2_ytrt2")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
@@ -25,8 +32,3 @@ centered = false
 offset = Vector2(-140, -457.805)
 hframes = 2
 vframes = 3
-
-[node name="NeighborRange" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborRange"]
-shape = SubResource("CircleShape2D_qxrkd")
