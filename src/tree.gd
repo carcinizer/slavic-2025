@@ -28,6 +28,9 @@ func _ready() -> void:
 	var sprite_variant := randi_range(0,sprite_variants_number - 1)
 	var sprite = get_node("Sprite") as Sprite2D
 	sprite.frame = sprite_variant
+	var flip = randi_range(0,1)
+	if flip == 1:
+		sprite.flip_h = true
 
 func _process(_delta: float):
 	modulate.r = hp/max_hp

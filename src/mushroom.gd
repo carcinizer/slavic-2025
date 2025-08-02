@@ -32,13 +32,17 @@ func _ready() -> void:
 	sprite_variant += sprite_variants_number * player_id
 	var sprite = get_node("Sprite") as Sprite2D
 	sprite.frame = sprite_variant
+	var flip = randi_range(0,1)
+	if flip == 1:
+		sprite.flip_h = true
+	
 
 func _process(_delta: float):
 	# if !connected_to_a_tree:
 	# 	hp -= death_speed
 	# if hp <= 0:
 	# 	queue_free()
-	var c = colors[player_id]
+	# var c = colors[player_id]
 	var scale_scalar = hp/max_hp
 	scale = lerp(scale, Vector2(scale_scalar, scale_scalar), 0.1)
 	if abs(rotation - target_rotation) < rotation_threshold:
