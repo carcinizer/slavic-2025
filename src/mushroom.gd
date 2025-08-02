@@ -1,11 +1,16 @@
 class_name Mushroom
-extends Node2D
+extends StaticBody2D
 
 @export var player_id := 0
 @export var hp := 20.0
-@export var max_hp := 100.0
+## Treshold to which the mushrom will decay if grown beyond it
+@export var max_growth := 100.0
+@export var max_hp := 120.0
 @export var growth_speed := 10.0
+## HP/s lost if hp > max_growth
+@export var overgrowth_decay_speed := 0
 @export var radius := 25
+@export var explosion_radius := 150
 
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 0.04
@@ -20,6 +25,7 @@ const sprite_variants_number := 4
 
 var target_rotation = 0
 const rotation_threshold = 0.01
+
 
 @onready var prev_hp = hp
 
@@ -43,6 +49,9 @@ func _ready() -> void:
 		sprite.flip_h = true
 	on_spawn.call_deferred()
 
+	## Set explosion area
+	$ExplosionArea/CollisionShape2D.shape.radius = explosion_radius
+
 func on_spawn():
 	my_cursor = GLOB.all_cursors[player_id]
 	should_check_for_connections = true
@@ -55,7 +64,7 @@ func die():
 	GLOB.all_mushrooms.erase(self)
 	my_cursor.my_mushrooms.erase(self)
 
-func _process(_delta: float):
+func _physics_process(_delta: float):
 	time_since_spawn += _delta
 	if my_tree == null and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed
@@ -72,6 +81,43 @@ func _process(_delta: float):
 	prev_hp = hp
 	if should_check_for_connections:
 		check_for_connections()
+
+	## Overgrowing
+	if hp >= max_hp:
+		explode()
+	if hp >= max_growth:
+		#$ExplosionArea.monitoring = true
+		hp -= overgrowth_decay_speed * _delta
+	#else: $ExplosionArea.monitoring = false
+	print($ExplosionArea.has_overlapping_bodies())
+
+
+func explode():
+	### Create an Area2D child
+	#var exploding_area: Area2D = Area2D.new()
+	#add_child(exploding_area)
+	#var collision_shape: CollisionShape2D = CollisionShape2D.new()
+	#exploding_area.add_child(collision_shape)
+	#var shape: CircleShape2D = CircleShape2D.new()
+	#shape.radius = explosion_radius
+	#collision_shape.shape = shape
+
+	## Get overlapping mushrooms
+	#var hits: Array[Mushroom]
+	var collisions_in_range: Array[Node2D] = \
+	$ExplosionArea.get_overlapping_bodies()#.filter(
+		#func(x): return x is Mushroom)
+	#hits.assign(collisions_in_range)
+
+	## Affect every mushroom in range
+	
+	for shroom in collisions_in_range:
+		shroom.die()
+	
+	## TODO Visual effects
+	
+	die()
+
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)

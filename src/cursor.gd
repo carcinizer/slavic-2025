@@ -69,8 +69,8 @@ func _process(delta: float) -> void:
 		if mushroom.hp > mushroom.max_hp:
 			if try_spawn_mushroom(nearby_mushrooms):
 				mushroom.hp -= starting_hp
-			else:
-				mushroom.hp = mushroom.max_hp
+			#else:
+				#mushroom.hp = mushroom.max_hp
 	
 
 func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
