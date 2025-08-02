@@ -5,16 +5,19 @@ extends Node2D
 @export var hp := 20.0
 @export var max_hp := 100.0
 @export var growth_speed := 10.0
+@export var radius := 25
+
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 0.04
-@export var radius := 25
+
+var time_since_spawn = 0
+
 var my_tree: Tree = null
 var my_cursor: Cursor = null
 
 const neighbor_range := 70.0
 const sprite_variants_number := 4
 
-var time_since_spawn = 0
 var target_rotation = 0
 const rotation_threshold = 0.01
 
@@ -44,6 +47,8 @@ func on_spawn():
 	my_cursor = GLOB.all_cursors[player_id]
 	check_for_connections()
 	time_since_spawn = 0
+	for tree in GLOB.all_trees:
+		tree.get_mushrooms_in_area()
 
 func die():
 	queue_free()
@@ -86,7 +91,7 @@ func check_area(areas: Array[Area2D]):
 				var othersareas = a.get_overlapping_areas()
 				print(obj.name)
 				check_area(othersareas)
-		if obj is Tree:
+		if obj is LifeTree:
 			my_tree = obj
 			print(obj.name)
 			break
