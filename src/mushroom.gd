@@ -5,8 +5,7 @@ extends StaticBody2D
 @export var hp := 20.0
 ## Treshold to which the mushrom will decay if grown beyond it
 @export var max_growth := 100.0
-@export var max_hp := 120.0
-@export var growth_speed := 10.0
+@export var max_hp := 150.0
 ## HP/s lost if hp > max_growth
 @export var overgrowth_decay_speed := 0
 @export var radius := 25
@@ -15,10 +14,14 @@ extends StaticBody2D
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 0.25
 
+@export var sprite: Sprite2D
+
 var time_since_spawn = 0
 var should_check_for_connections = false
 var my_lifeline: StaticBody2D = null
 var my_cursor: Cursor = null
+
+var exploding = false
 
 var nearby_mushrooms: Array[Mushroom]
 
@@ -45,7 +48,7 @@ const colors = [
 ]
 
 func _ready() -> void:
-	scale = Vector2.ZERO
+	sprite.scale = Vector2.ZERO
 	GLOB.all_mushrooms.push_back(self)
 	var sprite_variant := randi_range(0,sprite_variants_number-1)
 	sprite_variant += sprite_variants_number * player_id
@@ -89,11 +92,12 @@ func _physics_process(_delta: float):
 
 	# var c = colors[player_id]
 	var scale_scalar = hp/max_hp
-	scale = lerp(scale, Vector2(scale_scalar, scale_scalar), 0.1)
+	sprite.scale = lerp(sprite.scale, Vector2(scale_scalar, scale_scalar), 0.1)
 	if abs(rotation - target_rotation) < rotation_threshold:
 		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
 	
 	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
+
 	prev_hp = hp
 	#if should_check_for_connections:
 	#	check_for_connections()
@@ -108,8 +112,10 @@ func _physics_process(_delta: float):
 	else:
 		my_lifeline = null
 	
-	modulate = Color.WHITE if latest_pulse % 10 > 5 else Color.WHITE.darkened(0.1)
-	
+	var skew_amplitude = remap(hp, max_growth, max_hp, 5, 70) if hp > max_growth else 5.0
+	$Sprite.skew = deg_to_rad(sin(time_since_spawn / 30) * skew_amplitude) if latest_pulse % 30 > 15 else 0.0
+	modulate = Color.WHITE.darkened(0.1 * sin(latest_pulse * 0.05))
+
 	## Overgrowing
 	if hp >= max_hp:
 		explode()
@@ -119,6 +125,18 @@ func _physics_process(_delta: float):
 	#else: $ExplosionArea.monitoring = false
 	#print($ExplosionArea.has_overlapping_bodies())
 
+func kill_by_explosion():
+	var hits: Array[Mushroom]
+	var collisions_in_range: Array[Node2D] = \
+	$ExplosionArea.get_overlapping_bodies().filter(
+		func(x): return x is Mushroom and x != self)
+	print(collisions_in_range.size())
+	hits.assign(collisions_in_range)
+
+	## Affect every mushroom in range
+	for shroom in collisions_in_range:
+		shroom.die()
+
 
 func send_tree_pulse(obj: LifeTree, frame: int):
 	if frame > latest_pulse:
@@ -127,41 +145,27 @@ func send_tree_pulse(obj: LifeTree, frame: int):
 		for i in nearby_mushrooms:
 			i.send_tree_pulse(latest_pulse_source, latest_pulse)
 
-
 func explode():
-	### Create an Area2D child
-	#var exploding_area: Area2D = Area2D.new()
-	#add_child(exploding_area)
-	#var collision_shape: CollisionShape2D = CollisionShape2D.new()
-	#exploding_area.add_child(collision_shape)
-	#var shape: CircleShape2D = CircleShape2D.new()
-	#shape.radius = explosion_radius
-	#collision_shape.shape = shape
-
-	## Get overlapping mushrooms
-	#var hits: Array[Mushroom]
-	var collisions_in_range: Array[Node2D] = \
-	$ExplosionArea.get_overlapping_bodies()#.filter(
-		#func(x): return x is Mushroom)
-	#hits.assign(collisions_in_range)
-
-	## Affect every mushroom in range
-	
-	for shroom in collisions_in_range:
-		shroom.die()
-	
+	if exploding:
+		return
+	exploding = true
+	kill_by_explosion()
+	queue_redraw()
 	## TODO Visual effects
-	
+	await get_tree().create_timer(2).timeout
 	die()
 
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
 
-# func _draw():
-# 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-# 	var color = Color.GREEN if my_lifeline != null else Color.RED 
-# 	draw_circle(Vector2(0,0), rad, color, false, 1, true)
+func _draw():
+	# var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
+	# var color = Color.GREEN if my_lifeline != null else Color.RED 
+	# draw_circle(Vector2(0,0), rad, color, false, 1, true)
+	if exploding:
+		var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
+		draw_circle(Vector2(0,0), rad, Color.WHITE, true, 1, true)
 
 var checked_mushrooms: Array[Mushroom] = []
 

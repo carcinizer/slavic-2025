@@ -11,10 +11,12 @@ radius = 70.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6c3h1"]
 
-[node name="Mushroom" type="StaticBody2D"]
+[node name="Mushroom" type="StaticBody2D" node_paths=PackedStringArray("sprite")]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_0bdi0")
+overgrowth_decay_speed = 3
+sprite = NodePath("Sprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0bdi0")
@@ -33,7 +35,6 @@ hframes = 16
 shape = SubResource("CircleShape2D_qxrkd")
 
 [node name="ExplosionArea" type="Area2D" parent="."]
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
 shape = SubResource("CircleShape2D_6c3h1")
