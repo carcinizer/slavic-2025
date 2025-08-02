@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=4 uid="uid://dosjbacgvospg"]
 
 [ext_resource type="Script" uid="uid://8wd5vtrtjn0v" path="res://src/map.gd" id="1_gldc4"]
-[ext_resource type="PackedScene" uid="uid://dyf1gatyn0ru0" path="res://scenes/pause_menu.tscn" id="2_0cso3"]
+[ext_resource type="PackedScene" path="res://scenes/pause_menu.tscn" id="2_0cso3"]
 [ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
 [ext_resource type="Texture2D" uid="uid://b5gqjf8jm27nv" path="res://graphics/test_tileset.png" id="4_0cso3"]
 [ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_2klcf"]
-[ext_resource type="PackedScene" uid="uid://b3lmds731gea4" path="res://scenes/corpse.tscn" id="6_2lpho"]
+[ext_resource type="PackedScene" uid="uid://evk5y1wfbibr" path="res://scenes/corpse.tscn" id="6_2lpho"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2klcf"]
 texture = ExtResource("4_0cso3")
