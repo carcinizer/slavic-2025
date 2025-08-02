@@ -20,6 +20,7 @@ var should_check_for_connections = false
 var my_lifeline: StaticBody2D = null
 var my_cursor: Cursor = null
 
+var my_tree = null
 
 var nearby_mushrooms: Array[Mushroom]
 
@@ -106,15 +107,7 @@ func _physics_process(_delta: float):
 		my_tree = null
 	
 	modulate = Color.WHITE if latest_pulse % 10 > 5 else Color.WHITE.darkened(0.1)
-
-func send_tree_pulse(obj: LifeTree, frame: int):
-	if frame > latest_pulse:
-		latest_pulse = frame
-		latest_pulse_source = obj
-		for i in nearby_mushrooms:
-			i.send_tree_pulse(latest_pulse_source, latest_pulse)
-		
-
+	
 	## Overgrowing
 	if hp >= max_hp:
 		explode()
@@ -122,7 +115,15 @@ func send_tree_pulse(obj: LifeTree, frame: int):
 		#$ExplosionArea.monitoring = true
 		hp -= overgrowth_decay_speed * _delta
 	#else: $ExplosionArea.monitoring = false
-	print($ExplosionArea.has_overlapping_bodies())
+	#print($ExplosionArea.has_overlapping_bodies())
+
+
+func send_tree_pulse(obj: LifeTree, frame: int):
+	if frame > latest_pulse:
+		latest_pulse = frame
+		latest_pulse_source = obj
+		for i in nearby_mushrooms:
+			i.send_tree_pulse(latest_pulse_source, latest_pulse)
 
 
 func explode():
