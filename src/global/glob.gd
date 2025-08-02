@@ -3,6 +3,7 @@ extends Node
 
 var all_mushrooms: Array[Mushroom] = []
 var all_trees: Array[LifeTree] = []
+var all_lifelines: Array[StaticBody2D] = []
 var all_cursors: Dictionary[int, Cursor] = {}
 var player_colors: Array[Color] = [Color.REBECCA_PURPLE, Color.DARK_RED]
 @onready var settings: Settings = load("user://settings.tres")

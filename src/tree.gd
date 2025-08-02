@@ -1,17 +1,22 @@
 class_name LifeTree
 extends StaticBody2D
 
-@export var hp := 20.0
+@export var hp := 100.0
 @export var max_hp := 100.0
 @export var radius := 100.0
 
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 0.04
 
+var my_connected_mushrooms: Array[Mushroom] = []
+var max_connected_mushrooms := 30
+var min_connected_mushrooms := 10
+
+var dead = false
 var time_since_spawn = 0
 
 var mushrooms_in_area := 0
-const max_mushrooms_in_area := 10
+const mushrooms_needed_in_area := 10
 
 const sprite_variants_number := 3
 
@@ -32,23 +37,31 @@ func _ready() -> void:
 	if flip == 1:
 		sprite.flip_h = true
 	GLOB.all_trees.push_back(self)
+	GLOB.all_lifelines.push_back(self)
 
 func die():
-	pass
+	queue_free()
+	GLOB.all_trees.erase(self)
+	GLOB.all_lifelines.erase(self)
+
 
 func _process(_delta: float):
-	#	modulate.r = hp/max_hp
-	#	modulate.g = hp/max_hp
-	#	modulate.b = hp/max_hp
+	modulate.r = hp/max_hp
+	modulate.g = hp/max_hp
+	modulate.b = hp/max_hp
 	time_since_spawn += _delta
-	if mushrooms_in_area < max_mushrooms_in_area and time_since_spawn > time_until_starts_dying:
+	# if mushrooms_in_area < mushrooms_needed_in_area and time_since_spawn > time_until_starts_dying:
+	if my_connected_mushrooms.size() < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed
 	if hp <= 0:
 		die()
+	queue_redraw()
 
-	if Input.is_action_just_pressed("debug"):
-		get_mushrooms_in_area()
+var arc_width = 20
 
 func _draw():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / max_mushrooms_in_area, 40, Color.LAWN_GREEN, 4, true )
+	# draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / mushrooms_needed_in_area, 40, Color.LAWN_GREEN, 4, true )
+	draw_arc(Vector2(0,0),rad, 0, TAU * my_connected_mushrooms.size() / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
+	if my_connected_mushrooms.size() > min_connected_mushrooms:
+		draw_arc(Vector2(0,0),rad + arc_width, 0, TAU * (my_connected_mushrooms.size() - min_connected_mushrooms) / (max_connected_mushrooms - min_connected_mushrooms), 40, Color.GREEN, arc_width, true )

@@ -12,7 +12,7 @@ extends Node2D
 
 var time_since_spawn = 0
 var should_check_for_connections = false
-var my_tree: LifeTree = null
+var my_lifeline: StaticBody2D = null
 var my_cursor: Cursor = null
 
 const neighbor_range := 70.0
@@ -47,8 +47,6 @@ func on_spawn():
 	my_cursor = GLOB.all_cursors[player_id]
 	should_check_for_connections = true
 	time_since_spawn = 0
-	for tree in GLOB.all_trees:
-		tree.get_mushrooms_in_area()
 
 func die():
 	queue_free()
@@ -57,7 +55,7 @@ func die():
 
 func _process(_delta: float):
 	time_since_spawn += _delta
-	if my_tree == null and time_since_spawn > time_until_starts_dying:
+	if my_lifeline == null and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed
 	if hp <= 0:
 		die()
@@ -78,7 +76,7 @@ func _exit_tree() -> void:
 
 # func _draw():
 # 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-# 	var color = Color.GREEN if my_tree != null else Color.RED 
+# 	var color = Color.GREEN if my_lifeline != null else Color.RED 
 # 	draw_circle(Vector2(0,0), rad, color, false, 1, true)
 
 var checked_mushrooms: Array[Mushroom] = []
@@ -92,9 +90,11 @@ func check_area(areas: Array[Area2D]):
 			if obj.player_id == player_id:
 				var othersareas = a.get_overlapping_areas()
 				check_area(othersareas)
-		if obj is LifeTree:
-			my_tree = obj
-			break
+		if obj is LifeTree or obj is LifeCorpse:
+			if !(self in obj.my_connected_mushrooms)and obj.my_connected_mushrooms.size() < obj.max_connected_mushrooms and !obj.dead:
+				my_lifeline = obj
+				obj.my_connected_mushrooms.push_back(self)
+				break
 
 func check_for_connections():
 	var areas = get_node("NeighborRange").get_overlapping_areas()

@@ -1,10 +1,17 @@
+class_name LifeCorpse
 extends StaticBody2D
 
-@export var hp := 20.0
+@export var hp := 100.0
 @export var max_hp := 100.0
 @export var radius := 100.0
 
+var dead = false
+
+@export var death_speed := 0.001
+
 var checked_mushrooms: Array[Mushroom] = []
+var my_connected_mushrooms: Array[Mushroom] = []
+var max_connected_mushrooms := 30
 
 const sprite_variants_number := 2
 
@@ -31,18 +38,27 @@ func _ready() -> void:
 	var flip = randi_range(0,1)
 	if flip == 1:
 		sprite.flip_h = true
+	GLOB.all_lifelines.push_back(self)
+
+func die():
+	dead = true
+	GLOB.all_lifelines.erase(self)
+	var sprite = get_node("Sprite") as Sprite2D
+	sprite.frame += 1;
 
 func _process(_delta: float):
-#	modulate.r = hp/max_hp
-#	modulate.g = hp/max_hp
-#	modulate.b = hp/max_hp
+	if dead:
+		return
+	modulate.r = hp/max_hp
+	modulate.g = hp/max_hp
+	modulate.b = hp/max_hp
+	if my_connected_mushrooms.size() > 0:
+		hp -= death_speed * my_connected_mushrooms.size()
+	if hp <= 0:
+		die()
 
 	if Input.is_action_just_pressed("debug"):
 		check_for_connections()
-
-func die():
-	var sprite = get_node("Sprite") as Sprite2D
-	sprite.frame += 1;
 
 func _draw():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
