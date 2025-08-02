@@ -88,7 +88,8 @@ func die():
 	my_cursor.my_mushrooms.erase(self)
 
 func _physics_process(_delta: float):
-	time_since_spawn += _delta
+	if !exploding:
+		time_since_spawn += _delta
 	if my_lifeline == null and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed * _delta
 	if hp <= 0:

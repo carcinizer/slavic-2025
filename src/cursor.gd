@@ -71,14 +71,15 @@ func _process(delta: float) -> void:
 	
 	var growth_factor := growth_speed * remap(nearby_mushrooms.size(), 0, 10, 1, 0.5)
 	for mushroom in nearby_mushrooms:
-		if mushroom.hp > mushroom.max_growth:
-			growth_factor *= .3
-		mushroom.hp += growth_factor * delta
-		if mushroom.hp > mushroom.max_growth:
-			if try_spawn_mushroom():
-				mushroom.hp -= starting_hp
-			#else:
-				#mushroom.hp = mushroom.max_hp
+		if !mushroom.exploding:
+			if mushroom.hp > mushroom.max_growth:
+				growth_factor *= .3
+			mushroom.hp += growth_factor * delta
+			if mushroom.hp > mushroom.max_growth:
+				if try_spawn_mushroom():
+					mushroom.hp -= starting_hp
+				#else:
+					#mushroom.hp = mushroom.max_hp
 
 func try_spawn_mushroom() -> bool:
 	#return false
