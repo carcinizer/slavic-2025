@@ -7,6 +7,7 @@ extends StaticBody2D
 
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 1
+@export var sprite_variant : int
 
 #var my_connected_mushrooms: Array[Mushroom] = []
 var max_connected_mushrooms := 30
@@ -31,12 +32,9 @@ func get_mushrooms_in_area():
 		#queue_redraw()
 
 func _ready() -> void:
-	var sprite_variant := randi_range(0,sprite_variants_number - 1)
+	sprite_variant *= 2
 	var sprite = get_node("Sprite") as Sprite2D
 	sprite.frame = sprite_variant
-	var flip = randi_range(0,1)
-	if flip == 1:
-		sprite.flip_h = true
 	GLOB.all_trees.push_back(self)
 	GLOB.all_lifelines.push_back(self)
 

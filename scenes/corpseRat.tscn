@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx5ttgfos2bab"]
+
+[ext_resource type="PackedScene" uid="uid://b3lmds731gea4" path="res://scenes/parent_scenes/corpse.tscn" id="1_6aw1p"]
+
+[node name="Corpse" instance=ExtResource("1_6aw1p")]
+sprite_variant = 1
+
+[node name="Sprite" parent="." index="1"]
+frame = 2
