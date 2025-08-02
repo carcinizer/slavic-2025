@@ -21,11 +21,15 @@ func update_button_text():
 
 
 func update_value():
+	$KeyChangeButton.text = "<press a key/gamepad button>"
 	var key = await any_action_pressed
 	if key is InputEventKey and key.keycode == KEY_ESCAPE:
+		$KeyChangeButton.text = "<cancelled>"
+		get_tree().create_timer(1.5).timeout.connect(update_button_text)
 		return
 	if GLOB.settings.is_keybinding_taken(key):
-		print("Keybinding already taken")
+		$KeyChangeButton.text = "<already taken>"
+		get_tree().create_timer(1.5).timeout.connect(update_button_text)
 		return
 	GLOB.settings.player_settings[player].set(player_settings_field, key)
 	BUS.players_changed.emit()
