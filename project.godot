@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 BUS="*res://src/global/bus.gd"
 GLOB="*res://src/global/glob.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
+
 [input]
 
 up1={
