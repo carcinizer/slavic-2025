@@ -6,7 +6,7 @@ extends Node2D
 @export var max_hp := 100.0
 @export var growth_speed := 10.0
 @export var time_until_starts_dying := 3.0
-@export var death_speed := 0.1
+@export var death_speed := 0.04
 @export var radius := 25
 var my_tree: Tree = null
 var my_cursor: Cursor = null

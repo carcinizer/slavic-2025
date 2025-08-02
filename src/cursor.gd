@@ -7,6 +7,7 @@ extends Node2D
 @onready var terrain: TileMapLayer = get_parent().get_node("Terrain") # yeah, whatever, it's a game jam
 
 const radius := 50.0
+var color: Color
 const growth_speed := 100.0
 const starting_hp := 20
 
@@ -120,4 +121,4 @@ func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
 	return false
 
 func _draw():
-	draw_circle(Vector2(0,0), radius, Color.GREEN, false, 5, true)
+	draw_circle(Vector2(0,0), radius, color, false, 5, true)
