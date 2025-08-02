@@ -7,7 +7,7 @@ extends Node2D
 @export var growth_speed := 10.0
 @export var death_speed := 1.0
 @export var radius := 25
-@export var connected_to_a_tree := false
+@export var my_tree: Tree = null
 
 const neighbor_range := 70.0
 const sprite_variants_number := 4
@@ -58,3 +58,26 @@ func _exit_tree() -> void:
 #	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 #	var color = Color.GREEN if connected_to_a_tree else Color.RED 
 #	draw_circle(Vector2(0,0), rad, color, false, 1, true)
+
+var checked_mushrooms: Array[Mushroom] = []
+
+func check_area(areas: Array[Area2D]):
+	for a in areas:
+		var obj = a.get_parent()
+		if obj is Mushroom and !(obj in checked_mushrooms):
+			obj.queue_redraw()
+			checked_mushrooms.push_back(obj)
+			if obj.player_id == player_id:
+				var othersareas = a.get_overlapping_areas()
+				print(obj.name)
+				check_area(othersareas)
+		if obj is Tree:
+			my_tree = obj
+			print(obj.name)
+			break
+
+func check_for_connections():
+	var areas = get_node("NeighborRange").get_overlapping_areas()
+	checked_mushrooms = []
+	check_area(areas)
+	
