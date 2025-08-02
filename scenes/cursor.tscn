@@ -9,7 +9,6 @@ radius = 100.0
 process_priority = 2
 process_physics_priority = 2
 script = ExtResource("1_s0nli")
-player_id = null
 
 [node name="GrowthArea" type="Area2D" parent="."]
 
