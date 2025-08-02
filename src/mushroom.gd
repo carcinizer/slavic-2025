@@ -16,6 +16,8 @@ extends StaticBody2D
 
 @export var sprite: Sprite2D
 
+@onready var explosion_particles_scene = preload("res://scenes/explosion_particles.tscn")
+
 var time_since_spawn = 0
 var should_check_for_connections = false
 var my_lifeline: StaticBody2D = null
@@ -146,7 +148,6 @@ func kill_by_explosion():
 
 func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
 	if frame > latest_pulse:
-		#print("test")
 		latest_pulse = frame
 		latest_time_pulse = frame + chain_timing # basically just pulse accounting for a "chain" so that the effect "spreads" from the tree
 												 # actually not, it's apparently not working
@@ -161,23 +162,30 @@ func explode():
 	if exploding:
 		return
 	exploding = true
+	
+	var particles = explosion_particles_scene.instantiate()
+	particles.emitting = true
+	particles.global_position = global_position
+	particles.modulate = GLOB.player_colors[player_id].lightened(0.5)
+	add_sibling(particles)
+	
 	kill_by_explosion()
 	queue_redraw()
 	## TODO Visual effects
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	die()
 
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
 
-func _draw():
+#func _draw():
 	# var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	# var color = Color.GREEN if my_lifeline != null else Color.RED 
 	# draw_circle(Vector2(0,0), rad, color, false, 1, true)
-	if exploding:
-		var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
-		draw_circle(Vector2(0,0), rad, Color.WHITE, true, 1, true)
+	#if exploding:
+		#var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
+		#draw_circle(Vector2(0,0), rad, Color.WHITE, true, 1, true)
 
 var checked_mushrooms: Array[Mushroom] = []
 
