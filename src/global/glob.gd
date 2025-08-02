@@ -6,6 +6,9 @@ var all_mushrooms: Array[Mushroom] = []
 @onready var settings: Settings = load("user://settings.tres")
 
 func _ready() -> void:
+	# update fullscreen
+	(func(): settings.fullscreen = settings.fullscreen).call_deferred()
+	
 	BUS.players_changed.connect(refresh_players)
 	
 	if settings == null: # No save file
@@ -36,6 +39,11 @@ func _ready() -> void:
 		BUS.players_changed.emit()
 	
 	refresh_players()
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("fullscreen"):
+		GLOB.settings.fullscreen = not GLOB.settings.fullscreen
 
 func refresh_players():
 	ResourceSaver.save(settings)

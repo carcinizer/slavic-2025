@@ -22,6 +22,10 @@ grow_vertical = 2
 layout_mode = 2
 text = "Continue"
 
+[node name="ToggleFullScreen" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Toggle fullscreen"
+
 [node name="QuitToMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit to menu"
@@ -31,5 +35,6 @@ layout_mode = 2
 text = "Quit to desktop"
 
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/ToggleFullScreen" to="." method="_on_toggle_full_screen_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitToDesktop" to="." method="_on_quit_to_desktop_pressed"]
