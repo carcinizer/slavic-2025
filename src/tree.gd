@@ -21,14 +21,15 @@ const mushrooms_needed_in_area := 10
 const sprite_variants_number := 3
 
 func get_mushrooms_in_area():
-	mushrooms_in_area = 0
+	#mushrooms_in_area = 0
 	var areas = get_node("NeighborRange").get_overlapping_areas()
 	for a in areas:
 		var obj = a.get_parent()
 		if obj is Mushroom:
-			mushrooms_in_area += 1
-		queue_redraw()
-	
+			#mushrooms_in_area += 1
+			obj.send_tree_pulse(self, GLOB.frame)
+		#queue_redraw()
+
 func _ready() -> void:
 	var sprite_variant := randi_range(0,sprite_variants_number - 1)
 	var sprite = get_node("Sprite") as Sprite2D
@@ -56,6 +57,13 @@ func _process(_delta: float):
 	if hp <= 0:
 		die()
 	queue_redraw()
+
+	mushrooms_in_area = 0
+
+	get_mushrooms_in_area()
+
+func send_mushroom_pulse():
+	mushrooms_in_area += 1
 
 var arc_width = 20
 
