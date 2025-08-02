@@ -4,25 +4,17 @@ extends StaticBody2D
 @export var max_hp := 100.0
 @export var radius := 100.0
 
-var checked_mushrooms: Array[Mushroom] = []
+var mushrooms_in_area := 0
 
 const sprite_variants_number := 3
 
-func check_area(areas: Array[Area2D]):
+func get_mushrooms_in_area():
+	mushrooms_in_area = 0
+	var areas = get_node("NeighborRange").get_overlapping_areas()
 	for a in areas:
 		var obj = a.get_parent()
-		if obj is Mushroom and !(obj in checked_mushrooms):
-			obj.connected_to_a_tree = true
-			obj.queue_redraw()
-			checked_mushrooms.push_back(obj)
-			var othersareas = a.get_overlapping_areas()
-			print(obj.name)
-			check_area(othersareas)
-
-func check_for_connections():
-	var areas = get_node("NeighborRange").get_overlapping_areas()
-	checked_mushrooms = []
-	check_area(areas)
+		if obj is Mushroom:
+			mushrooms_in_area += 1
 	
 func _ready() -> void:
 	var sprite_variant := randi_range(0,sprite_variants_number - 1)
@@ -38,7 +30,7 @@ func _process(_delta: float):
 	modulate.b = hp/max_hp
 
 	if Input.is_action_just_pressed("debug"):
-		check_for_connections()
+		get_mushrooms_in_area()
 
 func _draw():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius

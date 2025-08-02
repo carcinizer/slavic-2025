@@ -2,6 +2,7 @@ class_name SINGLETON_GLOB
 extends Node
 
 var all_mushrooms: Array[Mushroom] = []
+var all_cursors: Dictionary[int, Cursor] = {}
 
 @onready var settings: Settings = load("user://settings.tres")
 
