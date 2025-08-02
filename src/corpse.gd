@@ -60,6 +60,4 @@ func _process(_delta: float):
 	if Input.is_action_just_pressed("debug"):
 		check_for_connections()
 
-func _draw():
-	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-	draw_circle(Vector2(0,0), rad, Color.GREEN, false, 2, true)
+	$NeighborRange/CollisionShape2D.queue_redraw()

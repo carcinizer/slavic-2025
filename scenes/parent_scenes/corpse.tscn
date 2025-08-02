@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3lmds731gea4"]
+[gd_scene load_steps=6 format=3 uid="uid://b3lmds731gea4"]
 
 [ext_resource type="Script" uid="uid://cp2ggnox3kib" path="res://src/corpse.gd" id="1_qqko8"]
 [ext_resource type="Texture2D" uid="uid://bi37kyju0th8a" path="res://graphics/corpse03.png" id="2_qndv8"]
+[ext_resource type="Script" uid="uid://bqn55ewkh5gsd" path="res://src/draw_corpse_hp.gd" id="2_rv7b1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0bdi0"]
 radius = 52.6308
@@ -18,14 +19,16 @@ script = ExtResource("1_qqko8")
 position = Vector2(0, -34)
 shape = SubResource("CircleShape2D_0bdi0")
 
+[node name="NeighborRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborRange"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_qxrkd")
+script = ExtResource("2_rv7b1")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_qndv8")
 centered = false
 offset = Vector2(-140, -70.82)
 hframes = 2
 vframes = 3
-
-[node name="NeighborRange" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NeighborRange"]
-shape = SubResource("CircleShape2D_qxrkd")
