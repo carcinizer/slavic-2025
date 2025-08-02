@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://diegqaoh2uo56" path="res://src/ui/pause_menu.gd" id="1_n87rw"]
 
 [node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_n87rw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
