@@ -11,6 +11,14 @@ extends Node2D
 
 const neighbor_range := 70.0
 
+# TODO VERY TEMP
+const colors = [
+	Color.WHITE,
+	Color.RED,
+	Color.GREEN,
+	Color.BLUE
+]
+
 func _ready() -> void:
 	GLOB.all_mushrooms.push_back(self)
 
@@ -19,7 +27,7 @@ func _process(_delta: float):
 	# 	hp -= death_speed
 	# if hp <= 0:
 	# 	queue_free()
-	var c = Color.WHITE if player_id == 0 else Color.RED
+	var c = colors[player_id]
 	modulate = c.darkened(1.0 - hp/max_hp)
 
 func _exit_tree() -> void:

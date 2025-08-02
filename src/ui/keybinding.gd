@@ -6,6 +6,7 @@ extends HBoxContainer
 
 signal any_action_pressed
 
+
 func refresh(id: int) -> void:
 	player = id
 	$ActionLabel.text = text

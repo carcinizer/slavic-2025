@@ -24,9 +24,14 @@ func _ready():
 
 
 func _process(delta: float) -> void:
-	match player_id:
-		0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
-		1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
+	#match player_id:
+	#	0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
+	#	1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
+	position +=  500 * delta * Input.get_vector(
+		"key_left%d" % player_id, 
+		"key_right%d" % player_id,
+		"key_up%d" % player_id, 
+		"key_down%d" % player_id)
 	
 	var nearby_mushrooms: Array[Mushroom]
 	nearby_mushrooms.assign(

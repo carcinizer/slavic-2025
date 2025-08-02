@@ -34,7 +34,8 @@ func _ready() -> void:
 		settings.player_settings.push_back(p2)
 		
 		BUS.players_changed.emit()
-		
+	
+	refresh_players()
 
 func refresh_players():
 	ResourceSaver.save(settings)
