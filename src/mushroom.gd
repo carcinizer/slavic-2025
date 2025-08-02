@@ -103,10 +103,7 @@ func _physics_process(_delta: float):
 	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
 
 	prev_hp = hp
-	#if should_check_for_connections:
-	#	check_for_connections()
-	
-	
+
 	if latest_pulse > GLOB.frame - tree_pulse_coyote_time:
 		my_lifeline = latest_pulse_source
 		if not is_instance_valid(my_lifeline):
@@ -116,8 +113,8 @@ func _physics_process(_delta: float):
 	else:
 		my_lifeline = null
 	
-	var skew_amplitude = remap(hp, max_growth, max_hp, 5, 70) if hp > max_growth else 5.0
-	$Sprite.skew = deg_to_rad(sin(time_since_spawn / 30) * skew_amplitude) if latest_pulse % 30 > 15 else 0.0
+	var skew_amplitude = remap(hp, max_growth, max_hp, 1, 10) if hp > max_growth else 0.0
+	$Sprite.skew = deg_to_rad(sin(time_since_spawn * 30) * skew_amplitude)
 	modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
 
 	## Overgrowing
