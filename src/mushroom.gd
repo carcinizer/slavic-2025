@@ -5,8 +5,8 @@ extends StaticBody2D
 @export var hp := 20.0
 ## Treshold to which the mushrom will decay if grown beyond it
 @export var max_growth := 100.0
-@export var max_hp := 120.0
-@export var growth_speed := 10.0
+@export var hp_start_exploding := 100 
+@export var max_hp := 150.0
 ## HP/s lost if hp > max_growth
 @export var overgrowth_decay_speed := 0
 @export var radius := 25
@@ -93,7 +93,9 @@ func _physics_process(_delta: float):
 	if abs(rotation - target_rotation) < rotation_threshold:
 		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
 	
-	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
+	var lerp_speed = (hp - hp_start_exploding) / (max_hp - hp_start_exploding) if hp > hp_start_exploding else 0.1
+	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * lerp_speed)
+
 	prev_hp = hp
 	#if should_check_for_connections:
 	#	check_for_connections()
@@ -108,8 +110,9 @@ func _physics_process(_delta: float):
 	else:
 		my_lifeline = null
 	
-	modulate = Color.WHITE if latest_pulse % 10 > 5 else Color.WHITE.darkened(0.1)
-	
+	modulate = Color.WHITE if latest_pulse % 30 > 15 else Color.WHITE.darkened(0.1)
+	$Sprite.skew = deg_to_rad(sin(time_since_spawn / 15) * 15) if latest_pulse % 30 > 15 else 0.0
+
 	## Overgrowing
 	if hp >= max_hp:
 		explode()
