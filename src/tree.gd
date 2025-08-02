@@ -24,10 +24,10 @@ func _ready() -> void:
 	if flip == 1:
 		sprite.flip_h = true
 
-func _process(_delta: float):
-	modulate.r = hp/max_hp
-	modulate.g = hp/max_hp
-	modulate.b = hp/max_hp
+#func _process(_delta: float):
+#	modulate.r = hp/max_hp
+#	modulate.g = hp/max_hp
+#	modulate.b = hp/max_hp
 
 	if Input.is_action_just_pressed("debug"):
 		get_mushrooms_in_area()
