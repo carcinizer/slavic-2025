@@ -13,9 +13,6 @@ radius = 352.5
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_vplca")
-hp = null
-max_hp = null
-radius = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0bdi0")
