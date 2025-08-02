@@ -14,6 +14,7 @@ extends Node2D
 
 func _ready():
 	for player_id in range(GLOB.settings.player_settings.size()):
+		GLOB.players_in_the_game += 1
 		var mushroom: Mushroom = mushroom_scene.instantiate()
 		mushroom.player_id = player_id
 		mushroom.position = mushroom_positions[player_id]

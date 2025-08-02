@@ -6,7 +6,10 @@ var all_trees: Array[LifeTree] = []
 var all_lifelines: Array[StaticBody2D] = []
 var all_cursors: Dictionary[int, Cursor] = {}
 var player_colors: Array[Color] = [Color.REBECCA_PURPLE, Color.DARK_RED, Color.LIGHT_YELLOW, Color.DIM_GRAY]
+var players_in_the_game = 0
 @onready var settings: Settings = load("user://settings.tres")
+
+var debug_mushrooms = 0
 
 # i would have sworn that godot had something like this built in
 var frame = 0
@@ -46,11 +49,18 @@ func _ready() -> void:
 	
 	refresh_players()
 
+var time_since_spawn = 0
+var gameover = false
 
 func _process(delta: float) -> void:
+	time_since_spawn += delta
 	if Input.is_action_just_pressed("fullscreen"):
 		GLOB.settings.fullscreen = not GLOB.settings.fullscreen
 	frame += 1
+	if time_since_spawn > 5 and players_in_the_game <= 1 and !gameover:
+		gameover = true
+		await get_tree().create_timer(2).timeout
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn") # TODO change to end screen GAME OVER!!!
 
 func refresh_players():
 	ResourceSaver.save(settings)
