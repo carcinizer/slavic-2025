@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://xy6p4mhtnecx"]
+
+[ext_resource type="PackedScene" uid="uid://b3lmds731gea4" path="res://scenes/parent_scenes/corpse.tscn" id="1_grxn7"]
+
+[node name="Corpse" instance=ExtResource("1_grxn7")]

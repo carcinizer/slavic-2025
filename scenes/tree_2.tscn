@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj5baibewm1vd"]
+
+[ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/parent_scenes/tree.tscn" id="1_iekdm"]
+
+[node name="Tree" instance=ExtResource("1_iekdm")]
+sprite_variant = 1
+
+[node name="Sprite" parent="." index="1"]
+frame = 2
