@@ -12,6 +12,8 @@ extends StaticBody2D
 var max_connected_mushrooms := 30
 var min_connected_mushrooms := 10
 
+var latest_time_pulse = 0.0
+
 var dead = false
 var time_since_spawn = 0
 
@@ -57,7 +59,8 @@ func _process(_delta: float):
 	queue_redraw()
 
 	get_mushrooms_in_area()
-	print(mushrooms_in_area)
+	if mushrooms_in_area > min_connected_mushrooms:
+		modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
 	mushrooms_in_area = 0
 
 func send_mushroom_pulse():

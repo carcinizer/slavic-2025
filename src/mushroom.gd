@@ -141,12 +141,12 @@ func kill_by_explosion():
 
 
 func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
-	
 	if frame > latest_pulse:
 		latest_pulse = frame
 		latest_time_pulse = frame + chain_timing # basically just pulse accounting for a "chain" so that the effect "spreads" from the tree
 												 # actually not, it's apparently not working
 		latest_pulse_source = obj
+		obj.latest_time_pulse = latest_time_pulse
 		for i in nearby_mushrooms:
 			await get_tree().create_timer(0.05).timeout
 			if is_instance_valid(obj) and is_instance_valid(i):
