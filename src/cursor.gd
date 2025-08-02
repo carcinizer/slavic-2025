@@ -16,6 +16,8 @@ const MAP_WIDTH := 1920
 const MAP_HEIGHT := 1080
 
 var my_mushrooms: Array[Mushroom] = []
+var nearby_mushrooms: Array[Mushroom] = []
+
 
 func _ready():
 	GLOB.all_cursors[player_id] = self
@@ -23,6 +25,17 @@ func _ready():
 		if i is Mushroom:
 			if i.player_id == player_id:
 				my_mushrooms.push_back(i)
+	
+	nearby_mushrooms.assign(
+		growth_area.get_overlapping_bodies().filter(func(x): \
+			return x is Mushroom and x.player_id == player_id
+		)
+	)
+	growth_area.body_entered.connect(func(x): \
+		if x is Mushroom and x.player_id == player_id: \
+			nearby_mushrooms.push_back(x)
+	)
+	growth_area.body_exited.connect(func(b): nearby_mushrooms.erase(b))
 
 
 func _process(delta: float) -> void:
@@ -34,13 +47,6 @@ func _process(delta: float) -> void:
 		"key_right%d" % player_id,
 		"key_up%d" % player_id, 
 		"key_down%d" % player_id)
-	
-	var nearby_mushrooms: Array[Mushroom]
-	nearby_mushrooms.assign(
-		growth_area.get_overlapping_bodies().filter(func(x): \
-			return x is Mushroom and x.player_id == player_id
-		)
-	)
 	
 	# snap to nearest mushroom if not in range
 	var nearest_mushroom: Mushroom = null
@@ -67,14 +73,15 @@ func _process(delta: float) -> void:
 	for mushroom in nearby_mushrooms:
 		mushroom.hp += growth_factor * delta
 		if mushroom.hp > mushroom.max_hp:
-			if try_spawn_mushroom(nearby_mushrooms):
+			if try_spawn_mushroom():
 				mushroom.hp -= starting_hp
 			else:
 				mushroom.hp = mushroom.max_hp
 	
 
-func try_spawn_mushroom(nearby_mushrooms: Array[Mushroom]) -> bool:
-	for i in range(100):
+func try_spawn_mushroom() -> bool:
+	#return false
+	for i in range(10):
 		var offset = Vector2(randf_range(-radius, radius), randf_range(-radius, radius))
 		if offset.length() > radius:
 			continue

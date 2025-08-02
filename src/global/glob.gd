@@ -4,8 +4,11 @@ extends Node
 var all_mushrooms: Array[Mushroom] = []
 var all_trees: Array[LifeTree] = []
 var all_cursors: Dictionary[int, Cursor] = {}
-var player_colors: Array[Color] = [Color.REBECCA_PURPLE, Color.DARK_RED]
+var player_colors: Array[Color] = [Color.REBECCA_PURPLE, Color.DARK_RED, Color.LIGHT_YELLOW, Color.DIM_GRAY]
 @onready var settings: Settings = load("user://settings.tres")
+
+# i would have sworn that godot had something like this built in
+var frame = 0
 
 func _ready() -> void:
 	# update fullscreen
@@ -46,6 +49,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("fullscreen"):
 		GLOB.settings.fullscreen = not GLOB.settings.fullscreen
+	frame += 1
 
 func refresh_players():
 	ResourceSaver.save(settings)
