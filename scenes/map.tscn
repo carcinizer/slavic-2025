@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c7myiloimwfor" path="res://graphics/tilesetMockUp.png" id="3_2lpho"]
 [ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
 [ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_2klcf"]
-[ext_resource type="PackedScene" uid="uid://evk5y1wfbibr" path="res://scenes/corpse.tscn" id="6_2lpho"]
+[ext_resource type="PackedScene" uid="uid://b3lmds731gea4" path="res://scenes/corpse.tscn" id="6_2lpho"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nakos"]
 texture = ExtResource("3_2lpho")
@@ -203,3 +203,4 @@ centered = false
 
 [node name="Corpse" parent="." instance=ExtResource("6_2lpho")]
 position = Vector2(1534, 899)
+sprite_variant = 1

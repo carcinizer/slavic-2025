@@ -4,6 +4,7 @@ extends StaticBody2D
 @export var hp := 100.0
 @export var max_hp := 100.0
 @export var radius := 100.0
+@export var sprite_variant : int = 0
 
 var dead = false
 
@@ -31,12 +32,12 @@ func check_for_connections():
 	check_area(areas)
 	
 func _ready() -> void:
-	var sprite_variant := 2 * randi_range(0,sprite_variants_number - 1)
+	sprite_variant *= 2
 	var sprite = get_node("Sprite") as Sprite2D
 	sprite.frame = sprite_variant
-	var flip = randi_range(0,1)
-	if flip == 1:
-		sprite.flip_h = true
+	#var flip = randi_range(0,1)
+	#if flip == 1:
+	#	sprite.flip_h = true
 	GLOB.all_lifelines.push_back(self)
 
 func die():
