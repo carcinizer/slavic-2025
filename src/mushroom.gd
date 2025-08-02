@@ -15,6 +15,8 @@ extends StaticBody2D
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 0.25
 
+@export var sprite: Sprite2D
+
 var time_since_spawn = 0
 var should_check_for_connections = false
 var my_lifeline: StaticBody2D = null
@@ -45,7 +47,7 @@ const colors = [
 ]
 
 func _ready() -> void:
-	scale = Vector2.ZERO
+	sprite.scale = Vector2.ZERO
 	GLOB.all_mushrooms.push_back(self)
 	var sprite_variant := randi_range(0,sprite_variants_number-1)
 	sprite_variant += sprite_variants_number * player_id
@@ -89,7 +91,7 @@ func _physics_process(_delta: float):
 
 	# var c = colors[player_id]
 	var scale_scalar = hp/max_hp
-	scale = lerp(scale, Vector2(scale_scalar, scale_scalar), 0.1)
+	sprite.scale = lerp(sprite.scale, Vector2(scale_scalar, scale_scalar), 0.1)
 	if abs(rotation - target_rotation) < rotation_threshold:
 		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
 	
@@ -108,7 +110,7 @@ func _physics_process(_delta: float):
 	else:
 		my_lifeline = null
 	
-	modulate = Color.WHITE if latest_pulse % 10 > 5 else Color.WHITE.darkened(0.1)
+	modulate = Color.WHITE.darkened(0.1 * sin(latest_pulse * 0.05))
 	
 	## Overgrowing
 	if hp >= max_hp:
