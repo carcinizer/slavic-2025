@@ -87,7 +87,8 @@ func die():
 	GLOB.all_mushrooms.erase(self)
 	my_cursor.my_mushrooms.erase(self)
 
-func _physics_process(_delta: float):
+func _process(_delta: float):
+	
 	time_since_spawn += _delta
 	if my_lifeline == null and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed * _delta
@@ -143,7 +144,8 @@ func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
 	
 	if frame > latest_pulse:
 		latest_pulse = frame
-		latest_time_pulse = frame + chain_timing
+		latest_time_pulse = frame + chain_timing # basically just pulse accounting for a "chain" so that the effect "spreads" from the tree
+												 # actually not, it's apparently not working
 		latest_pulse_source = obj
 		for i in nearby_mushrooms:
 			await get_tree().create_timer(0.05).timeout
