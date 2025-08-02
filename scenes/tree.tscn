@@ -13,9 +13,6 @@ radius = 352.5
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_vplca")
-hp = null
-max_hp = null
-radius = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0bdi0")
@@ -23,11 +20,11 @@ shape = SubResource("CircleShape2D_0bdi0")
 [node name="Sprite" type="Sprite2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_vplca")
 centered = false
-offset = Vector2(-140, -265.645)
-hframes = 3
+offset = Vector2(-140, -457.805)
+hframes = 2
+vframes = 3
 
 [node name="NeighborRange" type="Area2D" parent="."]
 
