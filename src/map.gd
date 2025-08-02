@@ -13,13 +13,14 @@ extends Node2D
 ]
 
 func _ready():
-	for player in range(GLOB.settings.player_settings.size()):
+	for player_id in range(GLOB.settings.player_settings.size()):
 		var mushroom: Mushroom = mushroom_scene.instantiate()
-		mushroom.player_id = player
-		mushroom.position = mushroom_positions[player]
+		mushroom.player_id = player_id
+		mushroom.position = mushroom_positions[player_id]
 		add_child(mushroom)
 		
 		var cursor: Cursor = cursor_scene.instantiate()
-		cursor.player_id = player
-		cursor.position = mushroom_positions[player]
+		cursor.player_id = player_id
+		cursor.position = mushroom_positions[player_id]
+		cursor.color = GLOB.player_colors[player_id]
 		add_child(cursor)
