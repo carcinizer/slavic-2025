@@ -5,7 +5,7 @@ extends Node2D
 @onready var growth_area: Area2D = $GrowthArea
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
 
-const radius := 100.0
+const radius := 50.0
 const growth_speed := 100.0
 const starting_hp := 20
 

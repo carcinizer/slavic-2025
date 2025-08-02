@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dosjbacgvospg"]
+[gd_scene load_steps=5 format=3 uid="uid://dosjbacgvospg"]
 
 [ext_resource type="PackedScene" uid="uid://4cj1ov35do11" path="res://scenes/cursor.tscn" id="1_4xfga"]
 [ext_resource type="PackedScene" uid="uid://bds4f0x6befb7" path="res://scenes/mushroom.tscn" id="2_paxxb"]
 [ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
+[ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_0cso3"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_0cso3")
+centered = false
 
 [node name="Cursor" parent="." instance=ExtResource("1_4xfga")]
 position = Vector2(269, 290)
