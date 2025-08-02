@@ -35,7 +35,7 @@ func _ready():
 		if x is Mushroom and x.player_id == player_id: \
 			nearby_mushrooms.push_back(x)
 	)
-	growth_area.body_exited.connect(func(b): nearby_mushrooms.erase(b))
+	growth_area.body_exited.connect(func(b): if b is Mushroom: nearby_mushrooms.erase(b))
 
 
 func _process(delta: float) -> void:

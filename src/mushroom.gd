@@ -34,6 +34,7 @@ const rotation_threshold = 0.01
 const tree_pulse_coyote_time := 10 # frames
 
 var latest_pulse: int
+var latest_time_pulse: int
 var latest_pulse_source: LifeTree
 
 
@@ -67,7 +68,10 @@ func _ready() -> void:
 		if x.get_parent() is Mushroom and x.get_parent().player_id == player_id: \
 			nearby_mushrooms.push_back(x.get_parent())
 	)
-	$NeighborRange.area_exited.connect(func(b): nearby_mushrooms.erase(b.get_parent()))
+	$NeighborRange.area_exited.connect(func(x): \
+		if x.get_parent() is Mushroom and x.get_parent().player_id == player_id: \
+			nearby_mushrooms.erase(x.get_parent())
+	)
 
 
 	## Set explosion area
@@ -114,7 +118,7 @@ func _physics_process(_delta: float):
 	
 	var skew_amplitude = remap(hp, max_growth, max_hp, 5, 70) if hp > max_growth else 5.0
 	$Sprite.skew = deg_to_rad(sin(time_since_spawn / 30) * skew_amplitude) if latest_pulse % 30 > 15 else 0.0
-	modulate = Color.WHITE.darkened(0.1 * sin(latest_pulse * 0.05))
+	modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
 
 	## Overgrowing
 	if hp >= max_hp:
@@ -138,12 +142,16 @@ func kill_by_explosion():
 		shroom.die()
 
 
-func send_tree_pulse(obj: LifeTree, frame: int):
+func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
+	
 	if frame > latest_pulse:
 		latest_pulse = frame
+		latest_time_pulse = frame + chain_timing
 		latest_pulse_source = obj
 		for i in nearby_mushrooms:
-			i.send_tree_pulse(latest_pulse_source, latest_pulse)
+			await get_tree().create_timer(0.05).timeout
+			if is_instance_valid(obj) and is_instance_valid(i):
+				i.send_tree_pulse(obj, latest_pulse, 10)
 
 func explode():
 	if exploding:

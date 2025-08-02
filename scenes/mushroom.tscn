@@ -38,3 +38,6 @@ shape = SubResource("CircleShape2D_qxrkd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
 shape = SubResource("CircleShape2D_6c3h1")
+
+[node name="Pulse" type="Timer" parent="."]
+wait_time = 0.05

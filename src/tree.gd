@@ -21,12 +21,10 @@ const mushrooms_needed_in_area := 10
 const sprite_variants_number := 3
 
 func get_mushrooms_in_area():
-	#mushrooms_in_area = 0
 	var areas = get_node("NeighborRange").get_overlapping_areas()
 	for a in areas:
 		var obj = a.get_parent()
-		if obj is Mushroom:
-			#mushrooms_in_area += 1
+		if obj is Mushroom and mushrooms_in_area < max_connected_mushrooms and !dead:
 			obj.send_tree_pulse(self, GLOB.frame)
 		#queue_redraw()
 
