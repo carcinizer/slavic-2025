@@ -18,6 +18,7 @@ const MAP_HEIGHT := 1080
 var my_mushrooms: Array[Mushroom] = []
 var nearby_mushrooms: Array[Mushroom] = []
 
+var time_since_spawn = 0
 
 func _ready():
 	GLOB.all_cursors[player_id] = self
@@ -39,6 +40,7 @@ func _ready():
 
 
 func _process(delta: float) -> void:
+	time_since_spawn += delta
 	#match player_id:
 	#	0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
 	#	1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
@@ -65,6 +67,10 @@ func _process(delta: float) -> void:
 		Vector2(radius/2, radius/2),
 		Vector2(MAP_WIDTH - radius/2, MAP_HEIGHT - radius/2),
 	)
+	# print(my_mushrooms.size())
+	if my_mushrooms.size() == 0 and time_since_spawn > 5:
+		queue_free()
+		GLOB.players_in_the_game -= 1
 
 	if nearby_mushrooms.size() == 0:
 		return

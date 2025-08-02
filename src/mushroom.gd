@@ -37,6 +37,7 @@ var latest_pulse: int
 var latest_time_pulse: int
 var latest_pulse_source: LifeTree
 
+@export var supplied_by_a_tree := false
 
 @onready var prev_hp = hp
 
@@ -105,7 +106,7 @@ func _process(_delta: float):
 
 	prev_hp = hp
 
-	if latest_pulse > GLOB.frame - tree_pulse_coyote_time:
+	if latest_pulse > GLOB.frame - tree_pulse_coyote_time and supplied_by_a_tree:
 		my_lifeline = latest_pulse_source
 		if not is_instance_valid(my_lifeline):
 			my_lifeline = null
@@ -116,8 +117,11 @@ func _process(_delta: float):
 	
 	var skew_amplitude = remap(hp, max_growth, max_hp, 1, 10) if hp > max_growth else 0.0
 	$Sprite.skew = deg_to_rad(sin(time_since_spawn * 30) * skew_amplitude)
-	modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
-
+	if my_lifeline:
+		modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
+	else:
+		modulate = Color.WHITE
+	
 	## Overgrowing
 	if hp >= max_hp:
 		explode()
@@ -141,16 +145,17 @@ func kill_by_explosion():
 
 
 func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
-	
 	if frame > latest_pulse:
+		#print("test")
 		latest_pulse = frame
 		latest_time_pulse = frame + chain_timing # basically just pulse accounting for a "chain" so that the effect "spreads" from the tree
 												 # actually not, it's apparently not working
 		latest_pulse_source = obj
+		obj.latest_time_pulse = latest_time_pulse
 		for i in nearby_mushrooms:
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.02).timeout
 			if is_instance_valid(obj) and is_instance_valid(i):
-				i.send_tree_pulse(obj, latest_pulse, 10)
+				i.send_tree_pulse(obj, frame, 10)
 
 func explode():
 	if exploding:
