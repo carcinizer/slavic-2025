@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://dosjbacgvospg"]
 
-[ext_resource type="Script" path="res://src/map.gd" id="1_gldc4"]
+[ext_resource type="Script" uid="uid://8wd5vtrtjn0v" path="res://src/map.gd" id="1_gldc4"]
 [ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
 [ext_resource type="Texture2D" uid="uid://b5gqjf8jm27nv" path="res://graphics/test_tileset.png" id="4_0cso3"]
 

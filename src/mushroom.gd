@@ -12,6 +12,11 @@ extends Node2D
 const neighbor_range := 70.0
 const sprite_variants_number := 4
 
+var target_rotation = 0
+const rotation_threshold = 0.01
+
+@onready var prev_hp = hp
+
 # TODO VERY TEMP
 const colors = [
 	Color.WHITE,
@@ -22,6 +27,7 @@ const colors = [
 
 func _ready() -> void:
 	z_index = -1
+	scale = Vector2.ZERO
 	GLOB.all_mushrooms.push_back(self)
 	var sprite_variant := randi_range(0,sprite_variants_number-1)
 	sprite_variant += sprite_variants_number * player_id
@@ -34,7 +40,13 @@ func _process(_delta: float):
 	# if hp <= 0:
 	# 	queue_free()
 	var c = colors[player_id]
-	modulate = c.darkened(1.0 - hp/max_hp)
+	var scale_scalar = hp/max_hp
+	scale = lerp(scale, Vector2(scale_scalar, scale_scalar), 0.1)
+	if abs(rotation - target_rotation) < rotation_threshold:
+		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
+	
+	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
+	prev_hp = hp
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
