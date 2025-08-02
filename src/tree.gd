@@ -56,11 +56,11 @@ func _process(_delta: float):
 		hp -= death_speed * _delta
 	if hp <= 0:
 		die()
-	queue_redraw()
+	$NeighborRange/CollisionShape2D.queue_redraw()
 
 	get_mushrooms_in_area()
 	if mushrooms_in_area > min_connected_mushrooms:
-		modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
+		modulate = Color.WHITE.darkened(0.1 * sin(latest_time_pulse * 0.05))
 	mushrooms_in_area = 0
 	
 	var shrooms := GLOB.all_mushrooms.duplicate()
@@ -87,7 +87,7 @@ func send_mushroom_pulse():
 
 var arc_width = 20
 
-func _draw():
+func draw_hp():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	# draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / mushrooms_needed_in_area, 40, Color.LAWN_GREEN, 4, true )
 	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
