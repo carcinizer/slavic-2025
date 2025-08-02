@@ -11,8 +11,8 @@ extends Node2D
 @export var death_speed := 0.04
 
 var time_since_spawn = 0
-
-var my_tree: Tree = null
+var should_check_for_connections = false
+var my_tree: LifeTree = null
 var my_cursor: Cursor = null
 
 const neighbor_range := 70.0
@@ -45,7 +45,7 @@ func _ready() -> void:
 
 func on_spawn():
 	my_cursor = GLOB.all_cursors[player_id]
-	check_for_connections()
+	should_check_for_connections = true
 	time_since_spawn = 0
 	for tree in GLOB.all_trees:
 		tree.get_mushrooms_in_area()
@@ -70,6 +70,8 @@ func _process(_delta: float):
 	
 	rotation = lerp(rotation, target_rotation, abs(prev_hp-hp) * 0.1)
 	prev_hp = hp
+	if should_check_for_connections:
+		check_for_connections()
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
@@ -89,11 +91,9 @@ func check_area(areas: Array[Area2D]):
 			checked_mushrooms.push_back(obj)
 			if obj.player_id == player_id:
 				var othersareas = a.get_overlapping_areas()
-				print(obj.name)
 				check_area(othersareas)
 		if obj is LifeTree:
 			my_tree = obj
-			print(obj.name)
 			break
 
 func check_for_connections():
