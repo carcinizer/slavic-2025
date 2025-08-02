@@ -51,5 +51,4 @@ func _process(_delta: float):
 
 func _draw():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-	print(rad)
 	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / max_mushrooms_in_area, 40, Color.LAWN_GREEN, 4, true )
