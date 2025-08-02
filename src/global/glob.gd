@@ -64,4 +64,3 @@ func refresh_players():
 			if event != null:
 				InputMap.action_add_event("%s%d" % [field, id], event)
 	
-	

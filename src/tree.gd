@@ -24,7 +24,7 @@ func get_mushrooms_in_area():
 	var areas = get_node("NeighborRange").get_overlapping_areas()
 	for a in areas:
 		var obj = a.get_parent()
-		if obj is Mushroom and mushrooms_in_area < max_connected_mushrooms and !dead:
+		if obj is Mushroom and !dead:
 			obj.send_tree_pulse(self, GLOB.frame)
 		#queue_redraw()
 
@@ -59,6 +59,25 @@ func _process(_delta: float):
 	get_mushrooms_in_area()
 	print(mushrooms_in_area)
 	mushrooms_in_area = 0
+	
+	var shrooms := GLOB.all_mushrooms.duplicate()
+	shrooms.sort_custom(_sort_by_distance)
+	
+	var i = 0
+	
+	for shroom in shrooms:
+		(func(): shroom.supplied_by_a_tree = false).call_deferred() # resetting supplied state every frame
+																	# don't do drugs, kids
+	for shroom in shrooms:
+		if shroom.latest_pulse_source != self or shroom.supplied_by_a_tree:
+			shroom.supplied_by_a_tree = true
+			continue
+			
+		shroom.supplied_by_a_tree = true
+		i += 1
+		if i > max_connected_mushrooms:
+			break
+	
 
 func send_mushroom_pulse():
 	mushrooms_in_area += 1
@@ -71,3 +90,6 @@ func _draw():
 	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
 	if mushrooms_in_area > min_connected_mushrooms:
 		draw_arc(Vector2(0,0),rad + arc_width, 0, TAU * (mushrooms_in_area - min_connected_mushrooms) / (max_connected_mushrooms - min_connected_mushrooms), 40, Color.GREEN, arc_width, true )
+
+func _sort_by_distance(a: Mushroom, b: Mushroom) -> bool:
+	return (a.global_position - global_position).length() < (b.global_position-global_position).length()
