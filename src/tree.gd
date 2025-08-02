@@ -6,7 +6,7 @@ extends StaticBody2D
 @export var radius := 100.0
 
 @export var time_until_starts_dying := 3.0
-@export var death_speed := 0.04
+@export var death_speed := 1
 
 var my_connected_mushrooms: Array[Mushroom] = []
 var max_connected_mushrooms := 30
@@ -52,7 +52,7 @@ func _process(_delta: float):
 	time_since_spawn += _delta
 	# if mushrooms_in_area < mushrooms_needed_in_area and time_since_spawn > time_until_starts_dying:
 	if my_connected_mushrooms.size() < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:
-		hp -= death_speed
+		hp -= death_speed * _delta
 	if hp <= 0:
 		die()
 	queue_redraw()

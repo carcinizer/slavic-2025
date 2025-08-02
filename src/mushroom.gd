@@ -13,7 +13,7 @@ extends StaticBody2D
 @export var explosion_radius := 150
 
 @export var time_until_starts_dying := 3.0
-@export var death_speed := 0.04
+@export var death_speed := 0.25
 
 var time_since_spawn = 0
 var should_check_for_connections = false
@@ -65,7 +65,7 @@ func die():
 func _physics_process(_delta: float):
 	time_since_spawn += _delta
 	if my_lifeline == null and time_since_spawn > time_until_starts_dying:
-		hp -= death_speed
+		hp -= death_speed * _delta
 	if hp <= 0:
 		die()
 
@@ -87,7 +87,7 @@ func _physics_process(_delta: float):
 		#$ExplosionArea.monitoring = true
 		hp -= overgrowth_decay_speed * _delta
 	#else: $ExplosionArea.monitoring = false
-	print($ExplosionArea.has_overlapping_bodies())
+	# print($ExplosionArea.has_overlapping_bodies())
 
 
 func explode():

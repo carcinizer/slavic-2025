@@ -7,7 +7,7 @@ extends StaticBody2D
 
 var dead = false
 
-@export var death_speed := 0.001
+@export var death_speed := 0.01
 
 var checked_mushrooms: Array[Mushroom] = []
 var my_connected_mushrooms: Array[Mushroom] = []
@@ -23,7 +23,6 @@ func check_area(areas: Array[Area2D]):
 			obj.queue_redraw()
 			checked_mushrooms.push_back(obj)
 			var othersareas = a.get_overlapping_areas()
-			print(obj.name)
 			check_area(othersareas)
 
 func check_for_connections():
@@ -53,7 +52,7 @@ func _process(_delta: float):
 	modulate.g = hp/max_hp
 	modulate.b = hp/max_hp
 	if my_connected_mushrooms.size() > 0:
-		hp -= death_speed * my_connected_mushrooms.size()
+		hp -= death_speed * my_connected_mushrooms.size() * _delta
 	if hp <= 0:
 		die()
 
