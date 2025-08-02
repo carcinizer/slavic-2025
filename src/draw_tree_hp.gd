@@ -3,7 +3,6 @@ extends CollisionShape2D
 var arc_width = 20
 
 func _draw():
-	get_parent().get_parent().draw_hp()
 	var mushrooms_in_area = get_parent().get_parent().mushrooms_in_area
 	var min_connected_mushrooms = get_parent().get_parent().min_connected_mushrooms
 	var max_connected_mushrooms = get_parent().get_parent().max_connected_mushrooms

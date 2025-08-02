@@ -85,12 +85,5 @@ func send_mushroom_pulse():
 
 var arc_width = 20
 
-func draw_hp():
-	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-	# draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / mushrooms_needed_in_area, 40, Color.LAWN_GREEN, 4, true )
-	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
-	if mushrooms_in_area > min_connected_mushrooms:
-		draw_arc(Vector2(0,0),rad + arc_width, 0, TAU * (mushrooms_in_area - min_connected_mushrooms) / (max_connected_mushrooms - min_connected_mushrooms), 40, Color.GREEN, arc_width, true )
-
 func _sort_by_distance(a: Mushroom, b: Mushroom) -> bool:
 	return (a.global_position - global_position).length() < (b.global_position-global_position).length()
