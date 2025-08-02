@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dyf1gatyn0ru0" path="res://scenes/pause_menu.tscn" id="2_0cso3"]
 [ext_resource type="PackedScene" uid="uid://b7r5ai1pa2xl" path="res://scenes/tree.tscn" id="3_gldc4"]
 [ext_resource type="Texture2D" uid="uid://b5gqjf8jm27nv" path="res://graphics/test_tileset.png" id="4_0cso3"]
+[ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_2klcf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2klcf"]
 texture = ExtResource("4_0cso3")
@@ -37,3 +38,7 @@ tile_set = SubResource("TileSet_2lpho")
 
 [node name="Tree" parent="." instance=ExtResource("3_gldc4")]
 position = Vector2(239, 484)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_2klcf")
+centered = false
