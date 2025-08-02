@@ -8,7 +8,7 @@ extends StaticBody2D
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 1
 
-var my_connected_mushrooms: Array[Mushroom] = []
+#var my_connected_mushrooms: Array[Mushroom] = []
 var max_connected_mushrooms := 30
 var min_connected_mushrooms := 10
 
@@ -21,12 +21,10 @@ const mushrooms_needed_in_area := 10
 const sprite_variants_number := 3
 
 func get_mushrooms_in_area():
-	#mushrooms_in_area = 0
 	var areas = get_node("NeighborRange").get_overlapping_areas()
 	for a in areas:
 		var obj = a.get_parent()
-		if obj is Mushroom:
-			#mushrooms_in_area += 1
+		if obj is Mushroom and mushrooms_in_area < max_connected_mushrooms and !dead:
 			obj.send_tree_pulse(self, GLOB.frame)
 		#queue_redraw()
 
@@ -52,15 +50,15 @@ func _process(_delta: float):
 	modulate.b = hp/max_hp
 	time_since_spawn += _delta
 	# if mushrooms_in_area < mushrooms_needed_in_area and time_since_spawn > time_until_starts_dying:
-	if my_connected_mushrooms.size() < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:
+	if mushrooms_in_area < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed * _delta
 	if hp <= 0:
 		die()
 	queue_redraw()
 
-	mushrooms_in_area = 0
-
 	get_mushrooms_in_area()
+	print(mushrooms_in_area)
+	mushrooms_in_area = 0
 
 func send_mushroom_pulse():
 	mushrooms_in_area += 1
@@ -70,6 +68,6 @@ var arc_width = 20
 func _draw():
 	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	# draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / mushrooms_needed_in_area, 40, Color.LAWN_GREEN, 4, true )
-	draw_arc(Vector2(0,0),rad, 0, TAU * my_connected_mushrooms.size() / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
-	if my_connected_mushrooms.size() > min_connected_mushrooms:
-		draw_arc(Vector2(0,0),rad + arc_width, 0, TAU * (my_connected_mushrooms.size() - min_connected_mushrooms) / (max_connected_mushrooms - min_connected_mushrooms), 40, Color.GREEN, arc_width, true )
+	draw_arc(Vector2(0,0),rad, 0, TAU * mushrooms_in_area / min_connected_mushrooms, 40, Color.GREEN, arc_width, true )
+	if mushrooms_in_area > min_connected_mushrooms:
+		draw_arc(Vector2(0,0),rad + arc_width, 0, TAU * (mushrooms_in_area - min_connected_mushrooms) / (max_connected_mushrooms - min_connected_mushrooms), 40, Color.GREEN, arc_width, true )
