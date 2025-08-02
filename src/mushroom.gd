@@ -21,7 +21,6 @@ const colors = [
 ]
 
 func _ready() -> void:
-	z_index = -1
 	GLOB.all_mushrooms.push_back(self)
 	var sprite_variant := randi_range(0,sprite_variants_number-1)
 	sprite_variant += sprite_variants_number * player_id
