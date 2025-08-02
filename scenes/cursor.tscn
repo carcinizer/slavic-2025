@@ -17,3 +17,4 @@ shape = SubResource("CircleShape2D_d7ugn")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.376471)
+z_index = 1

@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://72fqqlylhdsw"]
+
+[ext_resource type="PackedScene" uid="uid://cpsus5vfp3p0v" path="res://scenes/keybinding.tscn" id="1_a15mp"]
+[ext_resource type="Script" uid="uid://dqegmeo0cjq1y" path="res://src/player_controls_settings.gd" id="1_v2yiu"]
+
+[node name="KeybindsScrollContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_v2yiu")
+
+[node name="KeybindsContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="KeybindsTopRow" type="HBoxContainer" parent="KeybindsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="KeybindsContainer/KeybindsTopRow"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Action"
+
+[node name="Label2" type="Label" parent="KeybindsContainer/KeybindsTopRow"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Input"
+
+[node name="Remove" type="Button" parent="KeybindsContainer/KeybindsTopRow"]
+layout_mode = 2
+text = "Remove"
+
+[node name="HSeparator" type="HSeparator" parent="KeybindsContainer"]
+layout_mode = 2
+
+[node name="Up" parent="KeybindsContainer" instance=ExtResource("1_a15mp")]
+layout_mode = 2
+text = "Up"
+
+[node name="Down" parent="KeybindsContainer" instance=ExtResource("1_a15mp")]
+layout_mode = 2
+text = "Down"
+player_settings_field = "key_down"
+
+[node name="Left" parent="KeybindsContainer" instance=ExtResource("1_a15mp")]
+layout_mode = 2
+text = "Left"
+player_settings_field = "key_left"
+
+[node name="Right" parent="KeybindsContainer" instance=ExtResource("1_a15mp")]
+layout_mode = 2
+text = "Right"
+player_settings_field = "key_right"
+
+[connection signal="pressed" from="KeybindsContainer/KeybindsTopRow/Remove" to="." method="_on_remove_pressed"]

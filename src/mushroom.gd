@@ -12,7 +12,16 @@ extends Node2D
 const neighbor_range := 70.0
 const sprite_variants_number := 4
 
+# TODO VERY TEMP
+const colors = [
+	Color.WHITE,
+	Color.RED,
+	Color.GREEN,
+	Color.BLUE
+]
+
 func _ready() -> void:
+	z_index = -1
 	GLOB.all_mushrooms.push_back(self)
 	var sprite_variant := randi_range(0,sprite_variants_number-1)
 	sprite_variant += sprite_variants_number * player_id
@@ -24,7 +33,7 @@ func _process(_delta: float):
 	# 	hp -= death_speed
 	# if hp <= 0:
 	# 	queue_free()
-	var c = Color.WHITE if player_id == 0 else Color.RED
+	var c = colors[player_id]
 	modulate = c.darkened(1.0 - hp/max_hp)
 
 func _exit_tree() -> void:

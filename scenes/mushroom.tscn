@@ -10,13 +10,14 @@ radius = 25.0
 radius = 70.0
 
 [node name="Mushroom" type="StaticBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_0bdi0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0bdi0")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, 1.5)
+position = Vector2(0, -28)
 texture = ExtResource("2_0bdi0")
 hframes = 16
 

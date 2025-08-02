@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://torywqpmiyue"]
+
+[ext_resource type="Script" uid="uid://bk57riomt7yyp" path="res://src/main_menu.gd" id="1_06t4h"]
+[ext_resource type="PackedScene" uid="uid://ddbvk747ycn4m" path="res://scenes/settings_menu.tscn" id="2_7vrkn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
+font_size = 96
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("hide_when_displaying_settings")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+settings_menu_scene = ExtResource("2_7vrkn")
+hide_when_displaying_settings = NodePath("MarginContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 470
+theme_override_constants/margin_right = 470
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.21
+text = "Title"
+label_settings = SubResource("LabelSettings_7vrkn")
+horizontal_alignment = 1
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="ButtonSpacer1" type="Control" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="ButtonSpacer2" type="Control" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]
