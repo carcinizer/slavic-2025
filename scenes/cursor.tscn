@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://4cj1ov35do11"]
+[gd_scene load_steps=3 format=3 uid="uid://4cj1ov35do11"]
 
-[ext_resource type="Texture2D" uid="uid://c7y385wmrj5ra" path="res://icon.svg" id="1_1eco6"]
 [ext_resource type="Script" uid="uid://dryha8cpot2k2" path="res://src/cursor.gd" id="1_s0nli"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7ugn"]
@@ -18,4 +17,4 @@ shape = SubResource("CircleShape2D_d7ugn")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.376471)
-texture = ExtResource("1_1eco6")
+z_index = 1

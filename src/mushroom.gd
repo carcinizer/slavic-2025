@@ -10,6 +10,7 @@ extends Node2D
 @export var connected_to_a_tree := false
 
 const neighbor_range := 70.0
+const sprite_variants_number := 4
 
 # TODO VERY TEMP
 const colors = [
@@ -20,7 +21,12 @@ const colors = [
 ]
 
 func _ready() -> void:
+	z_index = -1
 	GLOB.all_mushrooms.push_back(self)
+	var sprite_variant := randi_range(0,sprite_variants_number-1)
+	sprite_variant += sprite_variants_number * player_id
+	var sprite = get_node("Sprite") as Sprite2D
+	sprite.frame = sprite_variant
 
 func _process(_delta: float):
 	# if !connected_to_a_tree:
@@ -33,7 +39,7 @@ func _process(_delta: float):
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
 
-func _draw():
-	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
-	var color = Color.GREEN if connected_to_a_tree else Color.RED 
-	draw_circle(Vector2(0,0), rad, color, false, 1, true)
+#func _draw():
+#	var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
+#	var color = Color.GREEN if connected_to_a_tree else Color.RED 
+#	draw_circle(Vector2(0,0), rad, color, false, 1, true)

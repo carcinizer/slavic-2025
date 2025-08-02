@@ -6,7 +6,7 @@ extends Node2D
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
 @onready var terrain: TileMapLayer = get_parent().get_node("Terrain") # yeah, whatever, it's a game jam
 
-const radius := 100.0
+const radius := 50.0
 const growth_speed := 100.0
 const starting_hp := 20
 
