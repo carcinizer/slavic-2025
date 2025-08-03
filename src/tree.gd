@@ -53,6 +53,8 @@ func _process(_delta: float):
 	# if mushrooms_in_area < mushrooms_needed_in_area and time_since_spawn > time_until_starts_dying:
 	if mushrooms_in_area < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed * _delta
+	elif mushrooms_in_area > min_connected_mushrooms:
+		hp += _delta 
 	if hp <= 0:
 		die()
 	$NeighborRange/CollisionShape2D.queue_redraw()
@@ -61,7 +63,6 @@ func _process(_delta: float):
 	if mushrooms_in_area > min_connected_mushrooms:
 		modulate = Color.WHITE.darkened(0.1 * sin(latest_time_pulse * 0.05))
 	mushrooms_in_area = 0
-	
 	var shrooms := GLOB.all_mushrooms.duplicate()
 	shrooms.sort_custom(_sort_by_distance)
 	
