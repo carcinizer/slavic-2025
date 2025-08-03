@@ -35,6 +35,7 @@ func _ready() -> void:
 	GLOB.all_lifelines.push_back(self)
 
 func die():
+	$AudioStreamPlayer2D.play()
 	dead = true
 	GLOB.all_lifelines.erase(self)
 	var sprite = get_node("Sprite") as Sprite2D

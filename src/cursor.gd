@@ -127,6 +127,8 @@ func try_spawn_mushroom(spawner: Vector2) -> bool:
 			continue
 		
 		# actually spawn
+		$AudioStreamPlayer2D.pitch_scale = 1 + 0.5 * sin(time_since_spawn * 2)
+		$AudioStreamPlayer2D.play()
 		var new_mushroom: Mushroom = mushroom_scene.instantiate()
 		new_mushroom.global_position = new_pos
 		new_mushroom.hp = starting_hp
