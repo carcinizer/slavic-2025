@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BUS="*res://src/global/bus.gd"
 GLOB="*res://src/global/glob.gd"
+AUDIO="*res://scenes/audio.tscn"
 
 [display]
 

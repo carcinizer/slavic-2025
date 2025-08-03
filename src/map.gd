@@ -24,3 +24,17 @@ func _ready():
 		add_child(cursor)
 
 	GLOB.game_in_progress = true
+
+func _process(_delta: float):
+	var str := ""
+	
+	for player_id in range(GLOB.all_cursors.size()):
+		if not is_instance_valid(GLOB.all_cursors[player_id]):
+			continue
+		str += "[img]%s[/img][color=%s]%s\t\t" % [
+			GLOB.player_sprites[player_id],
+			GLOB.player_colors[player_id].to_html(), 
+			GLOB.all_cursors[player_id].my_mushrooms.size()
+		]
+	
+	$Hud/Scores.text = str

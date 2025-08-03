@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2yxx1daefw80"]
+
+[ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_ahhtf"]
+[ext_resource type="PackedScene" uid="uid://c0xmp0gfo4bbd" path="res://scenes/end_game_screen.tscn" id="2_oo0fn"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="Scores" type="RichTextLabel" parent="."]
+offset_right = 1273.0
+offset_bottom = 527.0
+size_flags_horizontal = 0
+theme = ExtResource("1_ahhtf")
+bbcode_enabled = true
+
+[node name="GameOver" parent="." instance=ExtResource("2_oo0fn")]
+visible = false
