@@ -192,7 +192,7 @@ func _draw():
 	if exploding:
 		var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
 		var alpha = remap(exploding_time,0,1,.5,0)
-		draw_circle(Vector2(0,0), rad, Color(1,1,1,alpha), true, 1, true)
+		draw_circle(Vector2(0,0), rad, Color(1,1,1,alpha), true, -1, true)
 
 var checked_mushrooms: Array[Mushroom] = []
 
