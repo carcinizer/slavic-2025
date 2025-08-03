@@ -39,15 +39,16 @@ func _ready() -> void:
 	GLOB.all_lifelines.push_back(self)
 
 func die():
-	queue_free()
 	GLOB.all_trees.erase(self)
 	GLOB.all_lifelines.erase(self)
-
+	dead = true
+	var sprite = get_node("Sprite") as Sprite2D
+	sprite.frame += 1;
 
 func _process(_delta: float):
-	modulate.r = hp/max_hp
-	modulate.g = hp/max_hp
-	modulate.b = hp/max_hp
+	# modulate.r = hp/max_hp
+	# modulate.g = hp/max_hp
+	# modulate.b = hp/max_hp
 	time_since_spawn += _delta
 	# if mushrooms_in_area < mushrooms_needed_in_area and time_since_spawn > time_until_starts_dying:
 	if mushrooms_in_area < min_connected_mushrooms and time_since_spawn > time_until_starts_dying:

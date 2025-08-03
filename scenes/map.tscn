@@ -565,10 +565,10 @@ position = Vector2(1374, 1256)
 position = Vector2(1383, 301)
 
 [node name="Tree2" parent="." instance=ExtResource("8_blm8a")]
-position = Vector2(979, 787)
+position = Vector2(1022, 778)
 
 [node name="Tree3" parent="." instance=ExtResource("9_mlgqr")]
-position = Vector2(1837, 860)
+position = Vector2(1865, 768)
 
 [node name="SpawnLocations" type="Node2D" parent="."]
 

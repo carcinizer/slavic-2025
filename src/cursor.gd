@@ -10,6 +10,7 @@ extends Node2D
 
 const radius := 50.0
 var color: Color
+var explosions = 0
 const growth_speed := 100.0
 const starting_hp := 20
 
@@ -43,6 +44,8 @@ func _ready():
 
 func _process(delta: float) -> void:
 	time_since_spawn += delta
+	if explosions > 0:
+		return
 	#match player_id:
 	#	0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
 	#	1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
@@ -69,7 +72,6 @@ func _process(delta: float) -> void:
 		Vector2(radius/2, radius/2),
 		Vector2(MAP_WIDTH - radius/2, MAP_HEIGHT - radius/2),
 	)
-	# print(my_mushrooms.size())
 	if my_mushrooms.size() == 0 and time_since_spawn > 5:
 		queue_free()
 		GLOB.players_in_the_game -= 1
@@ -77,7 +79,7 @@ func _process(delta: float) -> void:
 	if nearby_mushrooms.size() == 0:
 		return
 	
-	var growth_factor := growth_speed * remap(nearby_mushrooms.size(), 0, 10, 1, 0.5)
+	var growth_factor := growth_speed * remap(nearby_mushrooms.size(), 0, 10, 1, 0.8)
 	for mushroom in nearby_mushrooms:
 		if !mushroom.exploding:
 			if mushroom.hp > mushroom.max_growth:
