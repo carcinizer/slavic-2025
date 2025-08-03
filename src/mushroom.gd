@@ -169,6 +169,7 @@ var exploding_time = 0
 func explode():
 	if exploding:
 		return
+	my_cursor.explosions += 1
 	exploding = true
 	
 	var particles = explosion_particles_scene.instantiate()
@@ -180,6 +181,7 @@ func explode():
 	kill_by_explosion()
 	await get_tree().create_timer(1).timeout
 	die()
+	my_cursor.explosions -= 1
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)

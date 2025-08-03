@@ -10,6 +10,7 @@ extends Node2D
 
 const radius := 50.0
 var color: Color
+var explosions = 0
 const growth_speed := 100.0
 const starting_hp := 20
 
@@ -43,6 +44,8 @@ func _ready():
 
 func _process(delta: float) -> void:
 	time_since_spawn += delta
+	if explosions > 0:
+		return
 	#match player_id:
 	#	0: position += Input.get_vector("left1","right1","up1","down1") * 500 * delta
 	#	1: position += Input.get_vector("left2","right2","up2","down2") * 500 * delta
