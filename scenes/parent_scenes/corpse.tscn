@@ -13,6 +13,7 @@ radius = 190.851
 [node name="Corpse" type="StaticBody2D"]
 z_index = -1
 z_as_relative = false
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_qqko8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

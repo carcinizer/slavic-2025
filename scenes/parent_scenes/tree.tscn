@@ -13,6 +13,7 @@ radius = 352.5
 [node name="Tree" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_vplca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

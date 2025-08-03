@@ -5,5 +5,5 @@
 [node name="Tree" instance=ExtResource("1_57mgp")]
 death_speed = 2
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="2"]
 frame = 4

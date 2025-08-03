@@ -10,6 +10,7 @@ extends StaticBody2D
 @export var overgrowth_decay_speed := 0
 @export var radius := 25
 @export var explosion_radius := 150
+@export var scale_multiplier := 1.4
 
 @export var time_until_starts_dying := 3.0
 @export var death_speed := 10
@@ -104,7 +105,7 @@ func _process(_delta: float):
 		die()
 
 	# var c = colors[player_id]
-	var scale_scalar = (hp/max_hp) * 0.85 + 0.15
+	var scale_scalar = ((hp/max_hp) * 0.85 + 0.15) * scale_multiplier
 	sprite.scale = lerp(sprite.scale, Vector2(scale_scalar, scale_scalar), 0.1)
 	if abs(rotation - target_rotation) < rotation_threshold:
 		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
@@ -133,16 +134,14 @@ func _process(_delta: float):
 	if hp >= max_hp:
 		explode()
 	if hp >= max_growth:
-		#$ExplosionArea.monitoring = true
 		hp -= overgrowth_decay_speed * _delta
-	#else: $ExplosionArea.monitoring = false
-	#print($ExplosionArea.has_overlapping_bodies())
 	
 	if should_pass_pulse:
 		for i in nearby_mushrooms:
 			if is_instance_valid(latest_pulse_source) and is_instance_valid(i):
 				i.send_tree_pulse(latest_pulse_source, latest_pulse, 10)
 	should_pass_pulse = false
+	# queue_redraw()
 
 func kill_by_explosion():
 	var hits: Array[Mushroom]
@@ -155,7 +154,6 @@ func kill_by_explosion():
 	## Affect every mushroom in range
 	for shroom in collisions_in_range:
 		shroom.die()
-
 
 func send_tree_pulse(obj: Variant, frame: int, chain_timing: int = 0):
 	if frame > latest_pulse:
@@ -189,6 +187,9 @@ func _draw():
 	# var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	# var color = Color.GREEN if my_lifeline != null else Color.RED 
 	# draw_circle(Vector2(0,0), rad, color, false, 1, true)
+	# if my_lifeline:
+	# 	draw_string(ThemeDB.fallback_font, Vector2(0,0), my_lifeline.name)
+
 	if exploding:
 		var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
 		var alpha = remap(exploding_time,0,1,.5,0)
