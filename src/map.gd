@@ -25,3 +25,5 @@ func _ready():
 		cursor.position = mushroom_positions[player_id]
 		cursor.color = GLOB.player_colors[player_id]
 		add_child(cursor)
+
+	GLOB.game_in_progress = true

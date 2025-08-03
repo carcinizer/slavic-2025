@@ -50,17 +50,16 @@ func _ready() -> void:
 	refresh_players()
 
 var time_since_spawn = 0
-var gameover = false
+var game_in_progress = false
 
 func _process(delta: float) -> void:
 	time_since_spawn += delta
 	if Input.is_action_just_pressed("fullscreen"):
 		GLOB.settings.fullscreen = not GLOB.settings.fullscreen
 	frame += 1
-	if time_since_spawn > 5 and players_in_the_game <= 1 and !gameover:
-		gameover = true
-		await get_tree().create_timer(2).timeout
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn") # TODO change to end screen GAME OVER!!!
+	if game_in_progress and \
+	players_in_the_game <= 1:
+		end_game()
 
 func refresh_players():
 	ResourceSaver.save(settings)
@@ -73,4 +72,13 @@ func refresh_players():
 			var event = settings.player_settings[id].get(field)
 			if event != null:
 				InputMap.action_add_event("%s%d" % [field, id], event)
-	
+
+
+func end_game() -> void:
+	game_in_progress = false
+	const end_game_screen_scene: PackedScene = preload("res://scenes/end_game_screen.tscn")
+	var end_game_sceen_instance: GameOverScreen = end_game_screen_scene.instantiate() as GameOverScreen
+	# You can set a custom game over message by setting this var now
+	end_game_sceen_instance.text = "GAME OVER"
+	get_tree().root.add_child(end_game_sceen_instance)
+	GLOB.players_in_the_game = 0
