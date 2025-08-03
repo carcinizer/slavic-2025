@@ -5,5 +5,5 @@
 [node name="Corpse" instance=ExtResource("1_ap3b7")]
 sprite_variant = 2
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="2"]
 frame = 4
