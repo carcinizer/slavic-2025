@@ -122,7 +122,7 @@ func _process(_delta: float):
 	var skew_amplitude = remap(hp, max_growth, max_hp, 1, 10) if hp > max_growth else 0.0
 	$Sprite.skew = deg_to_rad(sin(time_since_spawn * 30) * skew_amplitude)
 	if my_lifeline:
-		modulate = Color.WHITE.darkened(0.7 * sin(latest_time_pulse * 0.05))
+		modulate = Color.WHITE.darkened(0.1 * sin(latest_time_pulse * 0.05))
 	else:
 		modulate = Color.WHITE
 	
