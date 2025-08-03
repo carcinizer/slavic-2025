@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func game_over(winner: int, score: int) -> void:
 	visible = true
-	%Message.text = "Player %d won with %d mushrooms" % [winner+1, score]
+	%Message.text = "[color=%s]Player %d[color=white] won with %d mushrooms" % [GLOB.player_colors[winner].lightened(0.5).to_html(),winner+1, score]
 	
 func draw() -> void:
 	visible = true

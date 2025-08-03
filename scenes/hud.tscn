@@ -6,8 +6,8 @@
 [node name="Hud" type="CanvasLayer"]
 
 [node name="Scores" type="RichTextLabel" parent="."]
-offset_right = 1273.0
-offset_bottom = 527.0
+offset_right = 1725.0
+offset_bottom = 3528.0
 size_flags_horizontal = 0
 mouse_filter = 2
 theme = ExtResource("1_ahhtf")
@@ -16,3 +16,41 @@ bbcode_enabled = true
 [node name="GameOver" parent="." instance=ExtResource("2_oo0fn")]
 process_mode = 3
 visible = false
+
+[node name="Timer" type="HBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -249.0
+offset_bottom = 128.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="Min" type="RichTextLabel" parent="Timer"]
+custom_minimum_size = Vector2(101.705, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme = ExtResource("1_ahhtf")
+bbcode_enabled = true
+text = "21"
+horizontal_alignment = 2
+
+[node name="Timer2" type="RichTextLabel" parent="Timer"]
+custom_minimum_size = Vector2(7.925, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme = ExtResource("1_ahhtf")
+bbcode_enabled = true
+text = ":"
+horizontal_alignment = 1
+
+[node name="Sec" type="RichTextLabel" parent="Timer"]
+custom_minimum_size = Vector2(58.67, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme = ExtResource("1_ahhtf")
+bbcode_enabled = true
+text = "37"

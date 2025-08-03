@@ -48,6 +48,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme = SubResource("Theme_7y8om")
+bbcode_enabled = true
 text = "Player 1 won with 2137 mushrooms"
 horizontal_alignment = 1
 

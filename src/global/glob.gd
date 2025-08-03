@@ -22,6 +22,8 @@ var debug_mushrooms = 0
 # i would have sworn that godot had something like this built in
 var frame = 0
 
+var timer = 0
+
 func _ready() -> void:
 	# update fullscreen
 	(func(): settings.fullscreen = settings.fullscreen).call_deferred()
@@ -66,21 +68,28 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("fullscreen"):
 		GLOB.settings.fullscreen = not GLOB.settings.fullscreen
 	frame += 1
-	if game_in_progress and \
-	players_in_the_game <= 1:
+	if game_in_progress and (players_in_the_game <= 1 or timer < 0):
 		get_tree().paused = true
 		game_in_progress = false
 		await get_tree().create_timer(2.0, true, false)
 		
 		var end_game_screen = get_node("/root/Map/Hud/GameOver")
 		var winner = -1
+		var max_score = -1
 		for i in range(all_cursors.size()):
 			if is_instance_valid(all_cursors[i]):
-				winner = i
+				if max_score < all_cursors[i].my_mushrooms.size():
+					winner = i
+					max_score = all_cursors[i].my_mushrooms.size()
+				elif max_score == all_cursors[i].my_mushrooms.size():
+					winner = -1
+		
 		if winner == -1:
 			end_game_screen.draw()
 		else:
-			end_game_screen.game_over(winner, all_cursors[winner].my_mushrooms.size())
+			end_game_screen.game_over(winner, max_score)
+	
+	timer -= delta
 
 func refresh_players():
 	ResourceSaver.save(settings)

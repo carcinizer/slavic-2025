@@ -7,6 +7,7 @@ extends Node2D
 func _ready():
 	var spawn_locations = get_node("SpawnLocations")
 
+	GLOB.players_in_the_game = 0
 	for player_id in range(GLOB.settings.player_settings.size()):
 		GLOB.players_in_the_game += 1
 		var mushroom: Mushroom = mushroom_scene.instantiate()
@@ -24,6 +25,8 @@ func _ready():
 		add_child(cursor)
 
 	GLOB.game_in_progress = true
+	# 2 minutes for 2 players, +30s for each extra player
+	GLOB.timer = 60 + GLOB.settings.player_settings.size() * 30
 
 func _process(_delta: float):
 	var str := ""
@@ -37,4 +40,9 @@ func _process(_delta: float):
 			GLOB.all_cursors[player_id].my_mushrooms.size()
 		]
 	
+	var minutes = ceil(GLOB.timer / 60) - 1
+	var seconds = int(GLOB.timer) % 60
+	
 	$Hud/Scores.text = str
+	$Hud/Timer/Min.text = "%d" % [minutes]
+	$Hud/Timer/Sec.text = "%02d" % [seconds]
