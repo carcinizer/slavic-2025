@@ -126,15 +126,16 @@ func _process(_delta: float):
 	var skew_amplitude = remap(hp, max_growth, max_hp, 1, 10) if hp > max_growth else 0.0
 	$Sprite.skew = deg_to_rad(sin(time_since_spawn * 30) * skew_amplitude)
 	if my_lifeline:
-		modulate = Color.WHITE.darkened(0.5 * sin(latest_time_pulse * 0.05))
+		var color = Color.WEB_GRAY if my_lifeline is LifeCorpse else Color.WHITE 
+		modulate = color.darkened(0.5 * sin(latest_time_pulse * 0.05))
 	else:
 		modulate = Color.WHITE
 	
 	## Overgrowing
 	if hp >= max_hp:
 		explode()
-	if hp >= max_growth:
-		hp -= overgrowth_decay_speed * _delta
+	# if hp >= max_growth:
+	# 	hp -= overgrowth_decay_speed * _delta
 	
 	if should_pass_pulse:
 		for i in nearby_mushrooms:

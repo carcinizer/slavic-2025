@@ -69,7 +69,6 @@ func _process(delta: float) -> void:
 		Vector2(radius/2, radius/2),
 		Vector2(MAP_WIDTH - radius/2, MAP_HEIGHT - radius/2),
 	)
-	# print(my_mushrooms.size())
 	if my_mushrooms.size() == 0 and time_since_spawn > 5:
 		queue_free()
 		GLOB.players_in_the_game -= 1
@@ -77,7 +76,7 @@ func _process(delta: float) -> void:
 	if nearby_mushrooms.size() == 0:
 		return
 	
-	var growth_factor := growth_speed * remap(nearby_mushrooms.size(), 0, 10, 1, 0.5)
+	var growth_factor := growth_speed * remap(nearby_mushrooms.size(), 0, 10, 1, 0.8)
 	for mushroom in nearby_mushrooms:
 		if !mushroom.exploding:
 			if mushroom.hp > mushroom.max_growth:
