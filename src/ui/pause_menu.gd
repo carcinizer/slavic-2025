@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and GLOB.players_in_the_game > 1:
 		visible = not visible
 		get_tree().paused = not get_tree().paused
 
