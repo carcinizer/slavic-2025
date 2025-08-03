@@ -95,6 +95,9 @@ func die():
 func _process(_delta: float):
 	if !exploding:
 		time_since_spawn += _delta
+	else:
+		exploding_time += _delta
+		queue_redraw()
 	if my_lifeline == null and time_since_spawn > time_until_starts_dying:
 		hp -= death_speed * _delta
 	if hp <= 0:
@@ -163,6 +166,7 @@ func send_tree_pulse(obj: Variant, frame: int, chain_timing: int = 0):
 		obj.latest_time_pulse = latest_time_pulse
 		should_pass_pulse = true
 
+var exploding_time = 0
 func explode():
 	if exploding:
 		return
@@ -175,21 +179,20 @@ func explode():
 	add_sibling(particles)
 	
 	kill_by_explosion()
-	queue_redraw()
-	#await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1).timeout
 	die()
-
 
 func _exit_tree() -> void:
 	GLOB.all_mushrooms.erase(self)
 
-#func _draw():
+func _draw():
 	# var rad = get_node("NeighborRange/CollisionShape2D").shape.radius
 	# var color = Color.GREEN if my_lifeline != null else Color.RED 
 	# draw_circle(Vector2(0,0), rad, color, false, 1, true)
-	#if exploding:
-		#var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
-		#draw_circle(Vector2(0,0), rad, Color.WHITE, true, 1, true)
+	if exploding:
+		var rad = get_node("ExplosionArea/CollisionShape2D").shape.radius
+		var alpha = remap(exploding_time,0,1,.5,0)
+		draw_circle(Vector2(0,0), rad, Color(1,1,1,alpha), true, 1, true)
 
 var checked_mushrooms: Array[Mushroom] = []
 
