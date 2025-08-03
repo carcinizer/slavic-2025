@@ -5,7 +5,7 @@
 [node name="Corpse" instance=ExtResource("1_6aw1p")]
 scale = Vector2(1, 1)
 sprite_variant = 1
-death_speed = 1.2
+death_speed = 0.5
 
 [node name="Sprite" parent="." index="2"]
 position = Vector2(-4, 45.3333)
