@@ -63,12 +63,11 @@ func _process(_delta: float):
 	var i = 0
 	
 	for shroom in shrooms:
-		(func(): shroom.supplied_by_a_tree = false).call_deferred() # resetting supplied state every frame
-																	# don't do drugs, kids
+		(func(): shroom.supplied_by_a_tree = false).call_deferred()
 	
 	for shroom in shrooms:
 		if shroom.latest_pulse_source != self or shroom.supplied_by_a_tree:
-			shroom.supplied_by_a_tree = true
+			#shroom.supplied_by_a_tree = true
 			continue
 			
 		shroom.supplied_by_a_tree = true

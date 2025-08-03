@@ -71,7 +71,7 @@ func _process(_delta: float):
 																	# don't do drugs, kids
 	for shroom in shrooms:
 		if shroom.latest_pulse_source != self or shroom.supplied_by_a_tree:
-			shroom.supplied_by_a_tree = true
+			#shroom.supplied_by_a_tree = true
 			continue
 			
 		shroom.supplied_by_a_tree = true
