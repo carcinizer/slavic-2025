@@ -211,16 +211,16 @@ texture = ExtResource("4_2klcf")
 centered = false
 
 [node name="Corpse" parent="." instance=ExtResource("6_nakos")]
-position = Vector2(459, 329)
+position = Vector2(656, 301)
 
 [node name="Corpse2" parent="." instance=ExtResource("7_jh32y")]
-position = Vector2(1577, 262)
+position = Vector2(1150, 244)
 
 [node name="Tree2" parent="." instance=ExtResource("8_blm8a")]
 position = Vector2(799, 799)
 
 [node name="Tree3" parent="." instance=ExtResource("9_mlgqr")]
-position = Vector2(1424, 322)
+position = Vector2(1280, 526)
 
 [node name="SpawnLocations" type="Node2D" parent="."]
 
@@ -231,7 +231,7 @@ position = Vector2(206, 233)
 position = Vector2(1698, 879)
 
 [node name="3" type="Node2D" parent="SpawnLocations"]
-position = Vector2(1669, 271)
+position = Vector2(1734, 237)
 
 [node name="4" type="Node2D" parent="SpawnLocations"]
-position = Vector2(158, 932)
+position = Vector2(318, 847)
