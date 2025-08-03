@@ -3,7 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://b3lmds731gea4" path="res://scenes/parent_scenes/corpse.tscn" id="1_6aw1p"]
 
 [node name="Corpse" instance=ExtResource("1_6aw1p")]
+scale = Vector2(1, 1)
 sprite_variant = 1
+death_speed = 1.2
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="2"]
+position = Vector2(-4, 45.3333)
+scale = Vector2(1.45, 1.45)
 frame = 2
