@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://dosjbacgvospg"]
+[gd_scene load_steps=11 format=4 uid="uid://dosjbacgvospg"]
 
 [ext_resource type="Script" uid="uid://8wd5vtrtjn0v" path="res://src/map.gd" id="1_gldc4"]
 [ext_resource type="PackedScene" uid="uid://dyf1gatyn0ru0" path="res://scenes/pause_menu.tscn" id="2_0cso3"]
 [ext_resource type="Texture2D" uid="uid://c7myiloimwfor" path="res://graphics/tilesetMockUp.png" id="3_2lpho"]
 [ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_2klcf"]
 [ext_resource type="PackedScene" uid="uid://xy6p4mhtnecx" path="res://scenes/corpseHare.tscn" id="6_nakos"]
-[ext_resource type="PackedScene" uid="uid://bm4ho1erd2r8i" path="res://scenes/tree_1.tscn" id="7_be0no"]
 [ext_resource type="PackedScene" uid="uid://dx5ttgfos2bab" path="res://scenes/corpseRat.tscn" id="7_jh32y"]
 [ext_resource type="PackedScene" uid="uid://dj5baibewm1vd" path="res://scenes/tree_2.tscn" id="8_blm8a"]
 [ext_resource type="PackedScene" uid="uid://cwm3q06ju3ft4" path="res://scenes/tree_3.tscn" id="9_mlgqr"]
@@ -205,9 +204,6 @@ position = Vector2(1530, 903)
 
 [node name="Corpse2" parent="." instance=ExtResource("7_jh32y")]
 position = Vector2(1625, 423)
-
-[node name="Tree" parent="." instance=ExtResource("7_be0no")]
-position = Vector2(298, 395)
 
 [node name="Tree2" parent="." instance=ExtResource("8_blm8a")]
 position = Vector2(902, 314)

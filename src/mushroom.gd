@@ -12,7 +12,7 @@ extends StaticBody2D
 @export var explosion_radius := 150
 
 @export var time_until_starts_dying := 3.0
-@export var death_speed := 0.25
+@export var death_speed := 10
 
 @export var sprite: Sprite2D
 
