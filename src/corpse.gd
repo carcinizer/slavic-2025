@@ -9,7 +9,7 @@ extends StaticBody2D
 var latest_time_pulse = 0.0
 var dead = false
 
-@export var death_speed := 0.01
+@export var death_speed := 0.8
 
 var checked_mushrooms: Array[Mushroom] = []
 var max_connected_mushrooms := 30

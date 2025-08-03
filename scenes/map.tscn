@@ -225,7 +225,7 @@ centered = false
 position = Vector2(345, 771)
 
 [node name="Corpse2" parent="." instance=ExtResource("7_jh32y")]
-position = Vector2(2453, 806)
+position = Vector2(2454, 806)
 
 [node name="Corpse3" parent="." instance=ExtResource("9_be0no")]
 position = Vector2(1374, 1256)
@@ -242,13 +242,13 @@ position = Vector2(1837, 860)
 [node name="SpawnLocations" type="Node2D" parent="."]
 
 [node name="1" type="Node2D" parent="SpawnLocations"]
-position = Vector2(206, 233)
+position = Vector2(283, 271)
 
 [node name="2" type="Node2D" parent="SpawnLocations"]
-position = Vector2(1698, 879)
+position = Vector2(310, 1270)
 
 [node name="3" type="Node2D" parent="SpawnLocations"]
-position = Vector2(1734, 237)
+position = Vector2(2441, 1285)
 
 [node name="4" type="Node2D" parent="SpawnLocations"]
-position = Vector2(318, 847)
+position = Vector2(2421, 127)

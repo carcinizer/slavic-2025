@@ -14,8 +14,8 @@ const growth_speed := 100.0
 const starting_hp := 20
 
 # TODO yeah, not perfect, change to final resolution
-const MAP_WIDTH := 1920
-const MAP_HEIGHT := 1080
+const MAP_WIDTH := 23 * 120
+const MAP_HEIGHT := 13 * 120
 
 var my_mushrooms: Array[Mushroom] = []
 var nearby_mushrooms: Array[Mushroom] = []
