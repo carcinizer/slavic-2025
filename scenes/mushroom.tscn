@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bds4f0x6befb7"]
+[gd_scene load_steps=7 format=3 uid="uid://bds4f0x6befb7"]
 
 [ext_resource type="Script" uid="uid://qbyhgpiu2bts" path="res://src/mushroom.gd" id="1_0bdi0"]
 [ext_resource type="Texture2D" uid="uid://bosenr6of6tb2" path="res://graphics/mushrooms.png" id="2_0bdi0"]
+[ext_resource type="AudioStream" uid="uid://begd0phwgls15" path="res://audio/explode.ogg" id="3_qxrkd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0bdi0"]
 radius = 25.0
@@ -42,3 +43,6 @@ shape = SubResource("CircleShape2D_6c3h1")
 
 [node name="Pulse" type="Timer" parent="."]
 wait_time = 0.05
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qxrkd")

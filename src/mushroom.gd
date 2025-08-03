@@ -171,7 +171,7 @@ func explode():
 		return
 	my_cursor.explosions += 1
 	exploding = true
-	
+	$AudioStreamPlayer2D.play()
 	var particles = explosion_particles_scene.instantiate()
 	particles.emitting = true
 	particles.global_position = global_position
