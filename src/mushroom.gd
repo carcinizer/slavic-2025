@@ -89,7 +89,8 @@ func on_spawn():
 func die():
 	queue_free()
 	GLOB.all_mushrooms.erase(self)
-	my_cursor.my_mushrooms.erase(self)
+	if is_instance_valid(my_cursor):
+		my_cursor.my_mushrooms.erase(self)
 
 func _process(_delta: float):
 	if !exploding:
@@ -100,7 +101,7 @@ func _process(_delta: float):
 		die()
 
 	# var c = colors[player_id]
-	var scale_scalar = hp/max_hp
+	var scale_scalar = (hp/max_hp) * 0.85 + 0.15
 	sprite.scale = lerp(sprite.scale, Vector2(scale_scalar, scale_scalar), 0.1)
 	if abs(rotation - target_rotation) < rotation_threshold:
 		target_rotation = randfn(0, 0.2) * (hp/max_hp) # ca. 11 deg std deviation
@@ -175,8 +176,7 @@ func explode():
 	
 	kill_by_explosion()
 	queue_redraw()
-	## TODO Visual effects
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	die()
 
 

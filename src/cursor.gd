@@ -4,6 +4,8 @@ extends Node2D
 @export var player_id := 0
 @onready var growth_area: Area2D = $GrowthArea
 @onready var mushroom_scene := preload("res://scenes/mushroom.tscn")
+@onready var spores_scene := preload("res://scenes/spore_particles.tscn")
+
 @onready var terrain: TileMapLayer = get_parent().get_node("Terrain") # yeah, whatever, it's a game jam
 
 const radius := 50.0
@@ -82,12 +84,12 @@ func _process(delta: float) -> void:
 				growth_factor *= .3
 			mushroom.hp += growth_factor * delta
 			if mushroom.hp > mushroom.max_growth:
-				if try_spawn_mushroom():
+				if try_spawn_mushroom(mushroom.global_position):
 					mushroom.hp -= starting_hp
 				#else:
 					#mushroom.hp = mushroom.max_hp
 
-func try_spawn_mushroom() -> bool:
+func try_spawn_mushroom(spawner: Vector2) -> bool:
 	#return false
 	for i in range(10):
 		var offset = Vector2(randf_range(-radius, radius), randf_range(-radius, radius))
@@ -128,6 +130,12 @@ func try_spawn_mushroom() -> bool:
 		new_mushroom.hp = starting_hp
 		new_mushroom.player_id = player_id
 		add_sibling(new_mushroom)
+		
+		var particles = spores_scene.instantiate()
+		particles.emitting = true
+		particles.global_position = spawner
+		particles.modulate = GLOB.player_colors[player_id].lightened(0.5)
+		add_sibling(particles)
 		
 		my_mushrooms.push_back(new_mushroom)
 		new_mushroom.tree_exiting.connect(func(): my_mushrooms.erase(new_mushroom))

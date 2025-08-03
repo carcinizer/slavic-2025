@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvb1fh4n62vh"]
+[gd_scene load_steps=6 format=3 uid="uid://c0or7826h65r1"]
 
 [sub_resource type="Gradient" id="Gradient_0bdi0"]
 offsets = PackedFloat32Array(0)
@@ -17,12 +17,12 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_f4pa7"]
 curve = SubResource("Curve_6c3h1")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jekqn"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rptf8"]
 lifetime_randomness = 0.32
 spread = 180.0
 initial_velocity_max = 21.01
 radial_velocity_min = -2.23517e-05
-radial_velocity_max = 605.04
+radial_velocity_max = 208.65
 radial_velocity_curve = SubResource("CurveTexture_f4pa7")
 gravity = Vector3(0, 0, 0)
 
@@ -30,10 +30,10 @@ gravity = Vector3(0, 0, 0)
 top_level = true
 position = Vector2(0, -42.215)
 emitting = false
-amount = 80
+amount = 12
 texture = SubResource("GradientTexture2D_qxrkd")
-lifetime = 2.0
+lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_jekqn")
+process_material = SubResource("ParticleProcessMaterial_rptf8")
