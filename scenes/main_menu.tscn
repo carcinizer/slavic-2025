@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://torywqpmiyue"]
+[gd_scene load_steps=6 format=3 uid="uid://torywqpmiyue"]
 
 [ext_resource type="Script" path="res://src/main_menu.gd" id="1_06t4h"]
 [ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://ddbvk747ycn4m" path="res://scenes/settings_menu.tscn" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_wu84c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
 font_size = 96
@@ -56,6 +57,11 @@ layout_mode = 2
 [node name="ExitButton" type="Button" parent="VBoxContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Exit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -5
+texture = ExtResource("4_wu84c")
+centered = false
 
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
