@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://torywqpmiyue"]
+[gd_scene load_steps=9 format=3 uid="uid://torywqpmiyue"]
 
 [ext_resource type="Script" path="res://src/main_menu.gd" id="1_06t4h"]
 [ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://ddbvk747ycn4m" path="res://scenes/settings_menu.tscn" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://rklcxkgjnse" path="res://graphics/titleDeer.png" id="4_oa1go"]
 [ext_resource type="Texture2D" uid="uid://cnjeisgx6r8lf" path="res://graphics/ground.png" id="4_wu84c"]
+[ext_resource type="Texture2D" uid="uid://dukw7ifk85emj" path="res://graphics/titleTree1.png" id="5_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://d4e1sgw5rbjjv" path="res://graphics/titleTree2.png" id="6_jk1qb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
 font_size = 96
@@ -58,10 +61,42 @@ layout_mode = 2
 layout_mode = 2
 text = "Exit"
 
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(569, 775)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("4_oa1go")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(113, 221)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("5_tbmy8")
+centered = false
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(1288, 201)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("6_jk1qb")
+centered = false
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -5
 texture = ExtResource("4_wu84c")
 centered = false
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 1017.0
+offset_right = 2502.0
+offset_bottom = 1113.0
+scale = Vector2(0.755, 0.755)
+text = "Credits: Borb, Michał \"carcinizer\" Moniewski - Programming, Mienso, Ozzy, Rafał \"Panrac\" Tylko, Zeyfungus Cakiroglu​"
+fit_content = true
+autowrap_mode = 0
 
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
