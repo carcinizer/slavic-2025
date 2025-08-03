@@ -37,7 +37,8 @@ const tree_pulse_coyote_time := 10 # frames
 
 var latest_pulse: int
 var latest_time_pulse: int
-var latest_pulse_source: LifeTree
+var latest_pulse_source: Variant
+var should_pass_pulse := false
 
 @export var supplied_by_a_tree := false
 
@@ -132,6 +133,12 @@ func _process(_delta: float):
 		hp -= overgrowth_decay_speed * _delta
 	#else: $ExplosionArea.monitoring = false
 	#print($ExplosionArea.has_overlapping_bodies())
+	
+	if should_pass_pulse:
+		for i in nearby_mushrooms:
+			if is_instance_valid(latest_pulse_source) and is_instance_valid(i):
+				i.send_tree_pulse(latest_pulse_source, latest_pulse, 10)
+	should_pass_pulse = false
 
 func kill_by_explosion():
 	var hits: Array[Mushroom]
@@ -146,17 +153,14 @@ func kill_by_explosion():
 		shroom.die()
 
 
-func send_tree_pulse(obj: LifeTree, frame: int, chain_timing: int = 0):
+func send_tree_pulse(obj: Variant, frame: int, chain_timing: int = 0):
 	if frame > latest_pulse:
 		latest_pulse = frame
 		latest_time_pulse = frame + chain_timing # basically just pulse accounting for a "chain" so that the effect "spreads" from the tree
 												 # actually not, it's apparently not working
 		latest_pulse_source = obj
 		obj.latest_time_pulse = latest_time_pulse
-		for i in nearby_mushrooms:
-			await get_tree().create_timer(0.02).timeout
-			if is_instance_valid(obj) and is_instance_valid(i):
-				i.send_tree_pulse(obj, frame, 10)
+		should_pass_pulse = true
 
 func explode():
 	if exploding:
