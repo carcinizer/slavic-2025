@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddbvk747ycn4m"]
+[gd_scene load_steps=3 format=3 uid="uid://ddbvk747ycn4m"]
 
 [ext_resource type="Script" uid="uid://citacgw68hsj3" path="res://src/settings_menu.gd" id="1_05p07"]
+[ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_cr101"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_cr101")
 script = ExtResource("1_05p07")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -33,18 +35,28 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/All/KeybindingsScroll/VBox"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Keybindings"
 horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/All/KeybindingsScroll/VBox"]
-layout_mode = 2
 
 [node name="Players" type="VBoxContainer" parent="PanelContainer/All/KeybindingsScroll/VBox"]
 layout_mode = 2
 
-[node name="AddPlayer" type="Button" parent="PanelContainer/All/KeybindingsScroll/VBox"]
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/All/KeybindingsScroll/VBox"]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/All/KeybindingsScroll/VBox"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 80
+
+[node name="AddPlayer" type="Button" parent="PanelContainer/All/KeybindingsScroll/VBox/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Add player"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/All"]
+z_index = 1
+layout_mode = 2
 
 [node name="AudioMarginContainer" type="MarginContainer" parent="PanelContainer/All"]
 layout_mode = 2
@@ -60,6 +72,7 @@ size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="PanelContainer/All/AudioMarginContainer/AudioSliderContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Audio"
 horizontal_alignment = 1
 
@@ -125,6 +138,7 @@ ticks_on_borders = true
 
 [node name="Label2" type="Label" parent="PanelContainer/All/AudioMarginContainer/AudioSliderContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Video"
 horizontal_alignment = 1
 
@@ -133,6 +147,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="PanelContainer/All/AudioMarginContainer/AudioSliderContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Toggle fullscreen"
 
 [node name="Return" type="Button" parent="PanelContainer"]
@@ -141,6 +156,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "Return"
 
-[connection signal="pressed" from="PanelContainer/All/KeybindingsScroll/VBox/AddPlayer" to="." method="_on_add_player_pressed"]
+[connection signal="pressed" from="PanelContainer/All/KeybindingsScroll/VBox/MarginContainer/AddPlayer" to="." method="_on_add_player_pressed"]
 [connection signal="pressed" from="PanelContainer/All/AudioMarginContainer/AudioSliderContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Return" to="." method="_on_return_pressed"]

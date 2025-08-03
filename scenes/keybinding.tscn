@@ -7,7 +7,7 @@ script = ExtResource("1_efavd")
 
 [node name="ActionLabel" type="Label" parent="."]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 0
 text = "ActionLabel"
 
 [node name="KeyChangeButton" type="Button" parent="."]
