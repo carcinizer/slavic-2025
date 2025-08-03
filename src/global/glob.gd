@@ -54,6 +54,7 @@ func _ready() -> void:
 		settings.player_settings.push_back(p2)
 		
 		BUS.players_changed.emit()
+		
 	
 	refresh_players()
 
@@ -67,7 +68,19 @@ func _process(delta: float) -> void:
 	frame += 1
 	if game_in_progress and \
 	players_in_the_game <= 1:
-		end_game()
+		get_tree().paused = true
+		game_in_progress = false
+		await get_tree().create_timer(2.0, true, false)
+		
+		var end_game_screen = get_node("/root/Map/Hud/GameOver")
+		var winner = -1
+		for i in range(all_cursors.size()):
+			if is_instance_valid(all_cursors[i]):
+				winner = i
+		if winner == -1:
+			end_game_screen.draw()
+		else:
+			end_game_screen.game_over(winner, all_cursors[winner].my_mushrooms.size())
 
 func refresh_players():
 	ResourceSaver.save(settings)
@@ -80,14 +93,3 @@ func refresh_players():
 			var event = settings.player_settings[id].get(field)
 			if event != null:
 				InputMap.action_add_event("%s%d" % [field, id], event)
-
-
-func end_game() -> void:
-	game_in_progress = false
-	const end_game_screen_scene: PackedScene = preload("res://scenes/end_game_screen.tscn")
-	var end_game_sceen_instance: GameOverScreen = end_game_screen_scene.instantiate() as GameOverScreen
-	# You can set a custom game over message by setting this var now
-	#get_node("/Map/Hud/GameOver")
-	end_game_sceen_instance.text = "GAME OVER"
-	get_tree().root.add_child(end_game_sceen_instance)
-	GLOB.players_in_the_game = 0

@@ -9,8 +9,10 @@
 offset_right = 1273.0
 offset_bottom = 527.0
 size_flags_horizontal = 0
+mouse_filter = 2
 theme = ExtResource("1_ahhtf")
 bbcode_enabled = true
 
 [node name="GameOver" parent="." instance=ExtResource("2_oo0fn")]
+process_mode = 3
 visible = false

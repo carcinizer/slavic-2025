@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0xmp0gfo4bbd"]
+[gd_scene load_steps=4 format=3 uid="uid://c0xmp0gfo4bbd"]
 
 [ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_7y8om"]
 [ext_resource type="Script" uid="uid://f6j5h17emhm" path="res://end_game_screen.gd" id="2_70b0o"]
+
+[sub_resource type="Theme" id="Theme_7y8om"]
 
 [node name="EndGameScreen" type="PanelContainer"]
 anchors_preset = 8
@@ -36,14 +38,41 @@ layout_mode = 2
 text = "GAME OVER"
 horizontal_alignment = 1
 
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Message" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = SubResource("Theme_7y8om")
+text = "Player 1 won with 2137 mushrooms"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 90
-theme_override_constants/margin_top = 130
-theme_override_constants/margin_right = 90
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 15
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayAgain" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Play Again"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 120
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
