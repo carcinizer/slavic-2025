@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dyjxrr15wdax8" path="res://graphics/ui_theme.tres" id="1_0trnr"]
 [ext_resource type="PackedScene" uid="uid://cpsus5vfp3p0v" path="res://scenes/keybinding.tscn" id="1_a15mp"]
-[ext_resource type="Script" path="res://src/player_controls_settings.gd" id="1_v2yiu"]
+[ext_resource type="Script" uid="uid://dqegmeo0cjq1y" path="res://src/player_controls_settings.gd" id="1_v2yiu"]
 
 [node name="KeybindsScrollContainer" type="VBoxContainer"]
 anchors_preset = 15

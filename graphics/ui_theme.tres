@@ -76,6 +76,7 @@ thickness = 3
 vertical = true
 
 [resource]
+default_font_size = 60
 Button/font_sizes/font_size = 60
 Button/styles/focus = SubResource("StyleBoxTexture_fxnqa")
 Button/styles/hover = SubResource("StyleBoxTexture_gujr4")

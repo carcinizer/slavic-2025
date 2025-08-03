@@ -6,6 +6,14 @@ var all_trees: Array[LifeTree] = []
 var all_lifelines: Array[StaticBody2D] = []
 var all_cursors: Dictionary[int, Cursor] = {}
 var player_colors: Array[Color] = [Color.REBECCA_PURPLE, Color.DARK_RED, Color.LIGHT_YELLOW, Color.DIM_GRAY]
+var player_sprites: Array[String] = [
+	"res://graphics/player1.png",
+	"res://graphics/player2.png",
+	"res://graphics/player3.png",
+	"res://graphics/player4.png"
+]
+
+
 var players_in_the_game = 0
 @onready var settings: Settings = load("user://settings.tres")
 
@@ -79,6 +87,7 @@ func end_game() -> void:
 	const end_game_screen_scene: PackedScene = preload("res://scenes/end_game_screen.tscn")
 	var end_game_sceen_instance: GameOverScreen = end_game_screen_scene.instantiate() as GameOverScreen
 	# You can set a custom game over message by setting this var now
+	#get_node("/Map/Hud/GameOver")
 	end_game_sceen_instance.text = "GAME OVER"
 	get_tree().root.add_child(end_game_sceen_instance)
 	GLOB.players_in_the_game = 0

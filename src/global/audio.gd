@@ -1,0 +1,2 @@
+class_name SINGLETON_AUDIO
+extends Node
